@@ -1,5 +1,6 @@
-import { UserRole } from "@prisma/client";
+
 import { z } from "zod";
+import { UserRole } from "../../../../prisma/generated/client";
 const zodUserRole = z.enum(["user", "admin"]);
 const createUser = z.object({
   body: z.object({

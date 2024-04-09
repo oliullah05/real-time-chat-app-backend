@@ -150,11 +150,12 @@ exports.Prisma.ConversationUsersScalarFieldEnum = {
 exports.Prisma.MessageScalarFieldEnum = {
   id: 'id',
   message: 'message',
-  timestamp: 'timestamp',
   isDeleted: 'isDeleted',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
   conversationId: 'conversationId',
-  senderId: 'senderId',
-  receiverId: 'receiverId'
+  sender: 'sender',
+  receiver: 'receiver'
 };
 
 exports.Prisma.SortOrder = {

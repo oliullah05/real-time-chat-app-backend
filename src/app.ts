@@ -1,7 +1,6 @@
 import cors from "cors";
 import express, { Application, Request, Response } from "express";
 import globalErrorHandler from "./app/middlewars/globalErrorHandler";
-import { UserRoutes } from "./app/modules/user/user.route";
 import router from "./app/route";
 
 
