@@ -1,4 +1,5 @@
 import { Conversation } from "../../../../prisma/generated/client";
+import ApiError from "../../errors/apiError";
 import prisma from "../../shared/prisma";
 import { TPagination, TParticipantUsers } from "./conversation.type";
 
@@ -52,7 +53,7 @@ const getMyConversations = async (pagination: TPagination,email:string) => {
   const limit = Number(pagination.limit) || 10;
   const skip = (page - 1) * limit
      
- 
+
 
 
 
@@ -78,6 +79,11 @@ const getMyConversations = async (pagination: TPagination,email:string) => {
       updatedAt:"desc"
     }
   });
+
+if(result?.length===0){
+  throw new ApiError(404,"Conversation not found")
+}
+
 
   return {
     result,

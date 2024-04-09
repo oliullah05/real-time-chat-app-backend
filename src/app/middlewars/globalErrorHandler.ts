@@ -36,7 +36,7 @@ const globalErrorHandler = (
     errorDetails = null;
   }
   else if (err.name === "NotFoundError" && err.code ==="P2025") {
-   statusCode=400
+    statusCode=400
     message = err?.message;
   
   
@@ -70,6 +70,7 @@ const globalErrorHandler = (
 
   res.status(statusCode).json({
     success: false,
+    statusCode,
     message,
     errorDetails,
     stack: config.node_env === "development" ? err.stack : null,
