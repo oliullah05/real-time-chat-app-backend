@@ -4,6 +4,7 @@ import prisma from "../../shared/prisma";
 import config from "../../config";
 import { User } from "../../../../prisma/generated/client";
 const createUser = async (payload: User) => {
+
   const { password, ...data } = payload;
 
   const hashedPassword = await bcrypt.hash(

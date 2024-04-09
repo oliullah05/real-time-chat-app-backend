@@ -1,3 +1,4 @@
+import { AuthRoutes } from "../modules/auth/auth.route";
 import { ConversationRoutes } from "../modules/conversation/conversation.route";
 import { MessageRoutes } from "../modules/message/message.route";
 import { UserRoutes } from "../modules/user/user.route";
@@ -16,6 +17,10 @@ const allRoutes = [
   {
     path: "/message",
     route: MessageRoutes
+  },
+  {
+    path: "/auth",
+    route: AuthRoutes
   },
 ];
 

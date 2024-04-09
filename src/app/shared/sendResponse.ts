@@ -15,7 +15,7 @@ const sendResponse = <T> (res:Response,jsonResponse:{
         success:jsonResponse.success,
         statusCode:jsonResponse.statusCode,
         message:jsonResponse.message,
-        meta:jsonResponse.meta?jsonResponse.meta:null,
+        meta:jsonResponse?.meta?jsonResponse.meta:null,
         data:jsonResponse.data,
     })
 }
