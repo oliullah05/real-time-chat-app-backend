@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { ZodError } from "zod";
 import config from "../config";
+import { JsonWebTokenError } from "jsonwebtoken";
 
 const globalErrorHandler = (
   err: any,
@@ -33,7 +34,7 @@ const globalErrorHandler = (
     const regex = /Argument `(.*)` is missing/;
     const fieldName = errorMessage?.match(regex);
     message = `${fieldName && fieldName[1]} is missing.`;
-    errorDetails = null;
+    errorDetails=config.node_env==="development"?err:null
   }
   else if (err.name === "NotFoundError" && err.code ==="P2025") {
     statusCode=400
@@ -67,6 +68,22 @@ const globalErrorHandler = (
     });
     errorDetails = { issues: err.issues };
   }
+
+
+else if (err instanceof JsonWebTokenError){
+  statusCode=401
+  message="You are not authorized"
+  errorDetails=config.node_env==="development"?err:null
+}
+
+
+
+
+
+
+
+
+
 
   res.status(statusCode).json({
     success: false,

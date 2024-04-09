@@ -11,7 +11,7 @@ ConversationControllers.createConversation
 );
 
 
-router.get("/my-conversations", auth("admin"),
+router.get("/my-conversations", auth("user","admins"),
 ConversationControllers.getMyConversations);
 
 export const ConversationRoutes = router;

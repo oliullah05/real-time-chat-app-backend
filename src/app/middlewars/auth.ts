@@ -15,7 +15,15 @@ const auth = (...roles: string[]) => {
             const tokenWithBearer = req.headers.authorization;
 
             const token = tokenWithBearer.replace(/^Bearer\s/, '');
-            const verifyToken = await jwt.verify(token, config.jwt.jwt_access_secret as Secret)   
+            const verifyToken = jwt.verify(token, config.jwt.jwt_access_secret as Secret)
+     
+
+            // check authrization
+          if(roles.length>0 && !roles.includes((verifyToken as JwtPayload).role)){
+            throw new ApiError(401, "You are not authorized")
+          }
+
+
 
             req.user = verifyToken as JwtPayload
             return next()
