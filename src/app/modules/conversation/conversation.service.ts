@@ -54,7 +54,7 @@ const getMyConversations = async (pagination: TPagination,email:string) => {
      
  
 
-console.log({page,limit,skip});
+
 
 
   const result = await prisma.conversation.findMany({

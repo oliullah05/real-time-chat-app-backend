@@ -77,8 +77,5 @@ model Message {
   receiver     Int
   receiverInfo User @relation(fields: [receiver], references: [id], name: "receivedBy")
 
-  // User   User? @relation(fields: [userId], references: [id])
-  // userId Int?
-
   @@map("messages")
 }

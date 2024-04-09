@@ -7,9 +7,18 @@ const createMessage = async(payload:Message)=>{
     const result = await prisma.message.create({
         data:payload,
         include: {
-          senderInfo: true,
-          receiverInfo: true,
-          conversation: true,
+          senderInfo: {
+            select:{
+                name:true,
+                email:true
+            }
+          },
+          receiverInfo:{
+            select:{
+                name:true,
+                email:true
+            }
+          },
         },
       })
 
