@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { ZodError } from "zod";
 import config from "../config";
-import pick from "../shared/pick";
+
 const globalErrorHandler = (
   err: any,
   req: Request,
@@ -27,7 +27,7 @@ const globalErrorHandler = (
     };
   }
 
-  if (err.name === "PrismaClientValidationError") {
+  else if (err.name === "PrismaClientValidationError") {
    statusCode=400
     const errorMessage = err?.message;
     const regex = /Argument `(.*)` is missing/;
@@ -35,8 +35,20 @@ const globalErrorHandler = (
     message = `${fieldName && fieldName[1]} is missing.`;
     errorDetails = null;
   }
+  else if (err.name === "NotFoundError" && err.code ==="P2025") {
+   statusCode=400
+    message = err?.message;
+  
+  
+    
+    errorDetails = {
+      issu:{
+        issues:err.name
+      }
+    };
+  }
 
-  if (err instanceof ZodError && err.name === "ZodError") {
+  else if (err instanceof ZodError && err.name === "ZodError") {
    
     statusCode = 400;
     message = "";

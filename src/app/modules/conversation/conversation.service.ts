@@ -7,7 +7,7 @@ const createConversation = async (
     conversationsUsers: TParticipantUsers;
   }
 ) => {
-  console.log({payload});
+
   const result = await prisma.$transaction(async (txClient) => {
     const conversation = await txClient.conversation.create({
       data: {

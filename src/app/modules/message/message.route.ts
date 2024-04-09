@@ -10,6 +10,9 @@ router.post("/create-message",
 validateRequest(MessageValiditons.createMessage),
 MessageControllers.createMessage
 );
+router.get("/get-message-By-ConversationId/:conversationId",
+MessageControllers.getMessagesByConversationId
+);
 
 
 export const MessageRoutes = router;
