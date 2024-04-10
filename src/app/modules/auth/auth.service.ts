@@ -45,6 +45,35 @@ const login = async (payload: { email: string, password: string }) => {
 
 
 
+const refreshToken = async(token:string)=>{
+    const verifyToken = jwt.verify(token,config.jwt.jwt_refresh_secret  as Secret);
+
+    const {email,role}=verifyToken as JwtPayload;
+
+ const userData = await prisma.user.findUniqueOrThrow({
+    where:{
+        email
+    }
+  })
+
+// jwt 
+const jwtPayload: JwtPayload = {
+    email: userData.email,
+    role: userData.role
+}
+
+const accessToken =  jwt.sign(jwtPayload, config.jwt.jwt_access_secret as Secret, {
+    expiresIn: config.jwt.jwt_access_secret_expire_in
+})
+
+
+    return {
+        accessToken
+    }
+}
+
+
+
 
 
 
@@ -55,5 +84,6 @@ const login = async (payload: { email: string, password: string }) => {
 
 
 export const AuthServices = {
-    login
+    login,
+    refreshToken
 }

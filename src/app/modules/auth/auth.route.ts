@@ -1,13 +1,16 @@
+import express from "express";
 import validateRequest from "../../middlewars/validateRequest";
-import express from "express"
 import { AuthControllers } from "./auth.controller";
 import { AuthValidations } from "./auth.validation";
-import auth from "../../middlewars/auth";
 const router = express.Router();
 
 router.post("/login",
 validateRequest(AuthValidations.login), 
 AuthControllers.login
+);
+router.post("/refresh-token",
+validateRequest(AuthValidations.refreshToken), 
+AuthControllers.refreshToken
 );
 
 export const AuthRoutes = router;

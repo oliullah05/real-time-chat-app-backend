@@ -2,7 +2,7 @@ import cors from "cors";
 import express, { Application, Request, Response } from "express";
 import globalErrorHandler from "./app/middlewars/globalErrorHandler";
 import router from "./app/route";
-
+import cookieParser from 'cookie-parser'
 
 const app:Application = express();
 
@@ -11,7 +11,7 @@ app.use(cors())
 
 // parsers
 app.use(express.json())
-
+app.use(cookieParser())
 
 
 // routes
