@@ -29,40 +29,35 @@ const globalErrorHandler = (
   }
 
   else if (err.name === "PrismaClientValidationError") {
-   statusCode=400
+    statusCode = 400
     const errorMessage = err?.message;
     const regex = /Argument `(.*)` is missing/;
     const fieldName = errorMessage?.match(regex);
     message = `${fieldName && fieldName[1]} is missing.`;
-    errorDetails=config.node_env==="development"?err:null
+    errorDetails = config.node_env === "development" ? err : null
   }
-  else if (err.name === "NotFoundError" && err.code ==="P2025") {
-    statusCode=400
+  else if (err.name === "NotFoundError" && err.code === "P2025") {
+    statusCode = 400
     message = err?.message;
-  
-  
-    
     errorDetails = {
-      issu:{
-        issues:err.name
+      issu: {
+        issues: err.name
       }
     };
   }
 
   else if (err instanceof ZodError && err.name === "ZodError") {
-   
+
     statusCode = 400;
     message = "";
     err.issues.map((issu) => {
-      
-      if(issu.message.includes("Expected")){
-       const fieldName = issu.path[issu.path.length-1] as string;
-       const firstLatterUppercase =fieldName.charAt(0).toUpperCase() + fieldName.slice(1)
 
-      
-        message =   message + firstLatterUppercase +" " + issu.message + ". ";
+      if (issu.message.includes("Expected")) {
+        const fieldName = issu.path[issu.path.length - 1] as string;
+        const firstLatterUppercase = fieldName.charAt(0).toUpperCase() + fieldName.slice(1)
+        message = message + firstLatterUppercase + " " + issu.message + ". ";
       }
-      else{
+      else {
         message = message + issu.message + ". ";
       }
     });
@@ -70,20 +65,11 @@ const globalErrorHandler = (
   }
 
 
-else if (err instanceof JsonWebTokenError){
-  statusCode=401
-  message="You are not authorized"
-  errorDetails=config.node_env==="development"?err:null
-}
-
-
-
-
-
-
-
-
-
+  else if (err instanceof JsonWebTokenError) {
+    statusCode = 401
+    message = "You are not authorized"
+    errorDetails = config.node_env === "development" ? err : null
+  }
 
   res.status(statusCode).json({
     success: false,
