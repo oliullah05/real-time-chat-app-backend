@@ -1,1 +1,1 @@
-export const userFields = ["password","name","email"];
+export const userFields = ["password","name","email","profilePhoto"];

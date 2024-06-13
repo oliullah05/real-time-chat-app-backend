@@ -22,7 +22,7 @@ const login = async (payload: { email: string, password: string }) => {
 
     // jwt 
     const jwtPayload: JwtPayload = {
-        email: userData.email,
+        id: userData.id,
         role: userData.role
     }
 
@@ -39,6 +39,10 @@ const login = async (payload: { email: string, password: string }) => {
 
     return {
         accessToken,
+        user:{
+            id: userData.id,
+            role: userData.role
+        },
         refreshToken
     };
 }
@@ -48,7 +52,7 @@ const login = async (payload: { email: string, password: string }) => {
 const refreshToken = async(token:string)=>{
     const verifyToken = jwt.verify(token,config.jwt.jwt_refresh_secret  as Secret);
 
-    const {email,role}=verifyToken as JwtPayload;
+    const {email}=verifyToken as JwtPayload;
 
  const userData = await prisma.user.findUniqueOrThrow({
     where:{
@@ -56,9 +60,10 @@ const refreshToken = async(token:string)=>{
     }
   })
 
+  
 // jwt 
 const jwtPayload: JwtPayload = {
-    email: userData.email,
+    id: userData.id,
     role: userData.role
 }
 

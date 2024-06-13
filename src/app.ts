@@ -15,7 +15,7 @@ app.use(cookieParser())
 
 
 // routes
-app.use("/",router)
+app.use("/api",router)
 
 app.get("/",(req:Request,res:Response)=>{
     res.send("Chat application server is running")
@@ -26,7 +26,6 @@ app.use(globalErrorHandler);
 
 
 app.use("*",(req , res)=>{
-    console.log(req);
    res.status(404).json({
     success:false,
     message:"Api Not Found",

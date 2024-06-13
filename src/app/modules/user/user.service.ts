@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import prisma from "../../shared/prisma";
 import config from "../../config";
 import { User } from "../../../../prisma/generated/client";
+import jwt, { JwtPayload, Secret } from "jsonwebtoken";
 const createUser = async (payload: User) => {
 
   const { password, ...data } = payload;
@@ -25,7 +26,31 @@ const createUser = async (payload: User) => {
     }
   });
 
-  return result;
+    // jwt 
+    const jwtPayload: JwtPayload = {
+      id: result.id,
+      role: result.role
+  }
+
+  const accessToken =  jwt.sign(jwtPayload, config.jwt.jwt_access_secret as Secret, {
+      expiresIn: config.jwt.jwt_access_secret_expire_in
+  })
+
+
+  const refreshToken =  jwt.sign(jwtPayload, config.jwt.jwt_refresh_secret as Secret, {
+      expiresIn: config.jwt.jwt_refresh_secret_expire_in
+  })
+
+
+
+  return {
+      accessToken,
+      user:{
+          id: result.id,
+          role: result.role
+      },
+      refreshToken
+  };
 };
 
 

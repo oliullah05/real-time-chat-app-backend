@@ -14,6 +14,7 @@ const refreshToken = z.object({
     })
 })
 
+
 export const AuthValidations = {
 login,
 refreshToken
