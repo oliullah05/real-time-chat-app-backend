@@ -12,11 +12,10 @@ const createConversation = async (
 // sort participants
 
   const participants = payload.participants;
-  const participantsArray = participants.split('-');
-  const sortedParticipantsArray = participantsArray.sort((a, b) => Number(a) - Number(b));
-  const SortedParticipants = sortedParticipantsArray.join('-');
+  const participantsArray = participants.split('/');
+  const sortedParticipantsArray = participantsArray.sort();
+  const SortedParticipants = sortedParticipantsArray.join('/');
 
-// check if conversation exits
 
 const isConversationExits = await prisma.conversation.findFirst({
 where:{
