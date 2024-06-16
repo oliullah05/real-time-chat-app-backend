@@ -27,6 +27,18 @@ const globalErrorHandler = (
     };
   }
 
+  if (err.name === "PrismaClientKnownRequestError" && err.code === "P2003") {
+    console.log({err});
+    statusCode = 400;
+    const fieldName: string[] = err.meta.modelName;
+    message = `${fieldName} not valid.`;
+    errorDetails = {
+      issues: {
+        field: err.meta.field_name,
+      },
+    };
+  }
+
   else if (err.name === "PrismaClientValidationError") {
     statusCode = 400
     const errorMessage = err?.message;
@@ -59,7 +71,9 @@ const globalErrorHandler = (
       else {
         message = message + issu.message + ". ";
       }
+      
     });
+ 
     errorDetails = { issues: err.issues };
   }
 

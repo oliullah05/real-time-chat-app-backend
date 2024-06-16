@@ -26,7 +26,6 @@ model User {
   updatedAt    DateTime @updatedAt
 
   sentMessages      Message[]           @relation("sentBy")
-  receivedMessages  Message[]           @relation("receivedBy")
   ConversationUsers ConversationUsers[]
 
   @@map("users")
@@ -36,17 +35,19 @@ enum UserRole {
   admin
   user
 }
-
+ // Sort participants
+  // const sortedParticipants = participants.sort((a, b) => a - b);
+  // const participantsUniqueId = sortedParticipants.join('-');
 model Conversation {
   id                 Int                 @id @default(autoincrement())
-  participants       String              @unique
+  participants  String?
   lastMessage        String
   isGroup            Boolean             @default(false)
   groupName          String?
   isDeleted          Boolean             @default(false)
   createdAt          DateTime            @default(now())
   updatedAt          DateTime            @updatedAt
-  conversationsUsers ConversationUsers[]
+  conversationsUsers ConversationUsers[]   
   Message            Message[]
 
   @@map("conversations")
@@ -63,11 +64,10 @@ model ConversationUsers {
 }
 
 
-
 model Message {
   id        Int      @id @default(autoincrement())
   message   String
-  type      String?  @default("")
+  type      String?  @default("text")
   isDeleted Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -77,9 +77,6 @@ model Message {
 
   sender     Int
   senderInfo User @relation(fields: [sender], references: [id], name: "sentBy")
-
-  receiver     Int
-  receiverInfo User @relation(fields: [receiver], references: [id], name: "receivedBy")
 
   @@map("messages")
 }

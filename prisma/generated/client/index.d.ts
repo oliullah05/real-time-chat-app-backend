@@ -2283,6 +2283,7 @@ export namespace Prisma {
 
   export type ConversationMinAggregateOutputType = {
     id: number | null
+    participants: string | null
     lastMessage: string | null
     isGroup: boolean | null
     groupName: string | null
@@ -2293,6 +2294,7 @@ export namespace Prisma {
 
   export type ConversationMaxAggregateOutputType = {
     id: number | null
+    participants: string | null
     lastMessage: string | null
     isGroup: boolean | null
     groupName: string | null
@@ -2303,6 +2305,7 @@ export namespace Prisma {
 
   export type ConversationCountAggregateOutputType = {
     id: number
+    participants: number
     lastMessage: number
     isGroup: number
     groupName: number
@@ -2323,6 +2326,7 @@ export namespace Prisma {
 
   export type ConversationMinAggregateInputType = {
     id?: true
+    participants?: true
     lastMessage?: true
     isGroup?: true
     groupName?: true
@@ -2333,6 +2337,7 @@ export namespace Prisma {
 
   export type ConversationMaxAggregateInputType = {
     id?: true
+    participants?: true
     lastMessage?: true
     isGroup?: true
     groupName?: true
@@ -2343,6 +2348,7 @@ export namespace Prisma {
 
   export type ConversationCountAggregateInputType = {
     id?: true
+    participants?: true
     lastMessage?: true
     isGroup?: true
     groupName?: true
@@ -2440,6 +2446,7 @@ export namespace Prisma {
 
   export type ConversationGroupByOutputType = {
     id: number
+    participants: string
     lastMessage: string
     isGroup: boolean
     groupName: string | null
@@ -2469,6 +2476,7 @@ export namespace Prisma {
 
   export type ConversationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    participants?: boolean
     lastMessage?: boolean
     isGroup?: boolean
     groupName?: boolean
@@ -2482,6 +2490,7 @@ export namespace Prisma {
 
   export type ConversationSelectScalar = {
     id?: boolean
+    participants?: boolean
     lastMessage?: boolean
     isGroup?: boolean
     groupName?: boolean
@@ -2505,6 +2514,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
+      participants: string
       lastMessage: string
       isGroup: boolean
       groupName: string | null
@@ -2909,6 +2919,7 @@ export namespace Prisma {
    */ 
   interface ConversationFieldRefs {
     readonly id: FieldRef<"Conversation", 'Int'>
+    readonly participants: FieldRef<"Conversation", 'String'>
     readonly lastMessage: FieldRef<"Conversation", 'String'>
     readonly isGroup: FieldRef<"Conversation", 'Boolean'>
     readonly groupName: FieldRef<"Conversation", 'String'>
@@ -5241,6 +5252,7 @@ export namespace Prisma {
 
   export const ConversationScalarFieldEnum: {
     id: 'id',
+    participants: 'participants',
     lastMessage: 'lastMessage',
     isGroup: 'isGroup',
     groupName: 'groupName',
@@ -5468,6 +5480,7 @@ export namespace Prisma {
     OR?: ConversationWhereInput[]
     NOT?: ConversationWhereInput | ConversationWhereInput[]
     id?: IntFilter<"Conversation"> | number
+    participants?: StringFilter<"Conversation"> | string
     lastMessage?: StringFilter<"Conversation"> | string
     isGroup?: BoolFilter<"Conversation"> | boolean
     groupName?: StringNullableFilter<"Conversation"> | string | null
@@ -5480,6 +5493,7 @@ export namespace Prisma {
 
   export type ConversationOrderByWithRelationInput = {
     id?: SortOrder
+    participants?: SortOrder
     lastMessage?: SortOrder
     isGroup?: SortOrder
     groupName?: SortOrderInput | SortOrder
@@ -5495,6 +5509,7 @@ export namespace Prisma {
     AND?: ConversationWhereInput | ConversationWhereInput[]
     OR?: ConversationWhereInput[]
     NOT?: ConversationWhereInput | ConversationWhereInput[]
+    participants?: StringFilter<"Conversation"> | string
     lastMessage?: StringFilter<"Conversation"> | string
     isGroup?: BoolFilter<"Conversation"> | boolean
     groupName?: StringNullableFilter<"Conversation"> | string | null
@@ -5507,6 +5522,7 @@ export namespace Prisma {
 
   export type ConversationOrderByWithAggregationInput = {
     id?: SortOrder
+    participants?: SortOrder
     lastMessage?: SortOrder
     isGroup?: SortOrder
     groupName?: SortOrderInput | SortOrder
@@ -5525,6 +5541,7 @@ export namespace Prisma {
     OR?: ConversationScalarWhereWithAggregatesInput[]
     NOT?: ConversationScalarWhereWithAggregatesInput | ConversationScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Conversation"> | number
+    participants?: StringWithAggregatesFilter<"Conversation"> | string
     lastMessage?: StringWithAggregatesFilter<"Conversation"> | string
     isGroup?: BoolWithAggregatesFilter<"Conversation"> | boolean
     groupName?: StringNullableWithAggregatesFilter<"Conversation"> | string | null
@@ -5744,6 +5761,7 @@ export namespace Prisma {
   }
 
   export type ConversationCreateInput = {
+    participants: string
     lastMessage: string
     isGroup?: boolean
     groupName?: string | null
@@ -5756,6 +5774,7 @@ export namespace Prisma {
 
   export type ConversationUncheckedCreateInput = {
     id?: number
+    participants: string
     lastMessage: string
     isGroup?: boolean
     groupName?: string | null
@@ -5767,6 +5786,7 @@ export namespace Prisma {
   }
 
   export type ConversationUpdateInput = {
+    participants?: StringFieldUpdateOperationsInput | string
     lastMessage?: StringFieldUpdateOperationsInput | string
     isGroup?: BoolFieldUpdateOperationsInput | boolean
     groupName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -5779,6 +5799,7 @@ export namespace Prisma {
 
   export type ConversationUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
+    participants?: StringFieldUpdateOperationsInput | string
     lastMessage?: StringFieldUpdateOperationsInput | string
     isGroup?: BoolFieldUpdateOperationsInput | boolean
     groupName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -5791,6 +5812,7 @@ export namespace Prisma {
 
   export type ConversationCreateManyInput = {
     id?: number
+    participants: string
     lastMessage: string
     isGroup?: boolean
     groupName?: string | null
@@ -5800,6 +5822,7 @@ export namespace Prisma {
   }
 
   export type ConversationUpdateManyMutationInput = {
+    participants?: StringFieldUpdateOperationsInput | string
     lastMessage?: StringFieldUpdateOperationsInput | string
     isGroup?: BoolFieldUpdateOperationsInput | boolean
     groupName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -5810,6 +5833,7 @@ export namespace Prisma {
 
   export type ConversationUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
+    participants?: StringFieldUpdateOperationsInput | string
     lastMessage?: StringFieldUpdateOperationsInput | string
     isGroup?: BoolFieldUpdateOperationsInput | boolean
     groupName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6143,6 +6167,7 @@ export namespace Prisma {
 
   export type ConversationCountOrderByAggregateInput = {
     id?: SortOrder
+    participants?: SortOrder
     lastMessage?: SortOrder
     isGroup?: SortOrder
     groupName?: SortOrder
@@ -6157,6 +6182,7 @@ export namespace Prisma {
 
   export type ConversationMaxOrderByAggregateInput = {
     id?: SortOrder
+    participants?: SortOrder
     lastMessage?: SortOrder
     isGroup?: SortOrder
     groupName?: SortOrder
@@ -6167,6 +6193,7 @@ export namespace Prisma {
 
   export type ConversationMinOrderByAggregateInput = {
     id?: SortOrder
+    participants?: SortOrder
     lastMessage?: SortOrder
     isGroup?: SortOrder
     groupName?: SortOrder
@@ -6893,6 +6920,7 @@ export namespace Prisma {
   }
 
   export type ConversationCreateWithoutConversationsUsersInput = {
+    participants: string
     lastMessage: string
     isGroup?: boolean
     groupName?: string | null
@@ -6904,6 +6932,7 @@ export namespace Prisma {
 
   export type ConversationUncheckedCreateWithoutConversationsUsersInput = {
     id?: number
+    participants: string
     lastMessage: string
     isGroup?: boolean
     groupName?: string | null
@@ -6966,6 +6995,7 @@ export namespace Prisma {
   }
 
   export type ConversationUpdateWithoutConversationsUsersInput = {
+    participants?: StringFieldUpdateOperationsInput | string
     lastMessage?: StringFieldUpdateOperationsInput | string
     isGroup?: BoolFieldUpdateOperationsInput | boolean
     groupName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6977,6 +7007,7 @@ export namespace Prisma {
 
   export type ConversationUncheckedUpdateWithoutConversationsUsersInput = {
     id?: IntFieldUpdateOperationsInput | number
+    participants?: StringFieldUpdateOperationsInput | string
     lastMessage?: StringFieldUpdateOperationsInput | string
     isGroup?: BoolFieldUpdateOperationsInput | boolean
     groupName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6987,6 +7018,7 @@ export namespace Prisma {
   }
 
   export type ConversationCreateWithoutMessageInput = {
+    participants: string
     lastMessage: string
     isGroup?: boolean
     groupName?: string | null
@@ -6998,6 +7030,7 @@ export namespace Prisma {
 
   export type ConversationUncheckedCreateWithoutMessageInput = {
     id?: number
+    participants: string
     lastMessage: string
     isGroup?: boolean
     groupName?: string | null
@@ -7054,6 +7087,7 @@ export namespace Prisma {
   }
 
   export type ConversationUpdateWithoutMessageInput = {
+    participants?: StringFieldUpdateOperationsInput | string
     lastMessage?: StringFieldUpdateOperationsInput | string
     isGroup?: BoolFieldUpdateOperationsInput | boolean
     groupName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7065,6 +7099,7 @@ export namespace Prisma {
 
   export type ConversationUncheckedUpdateWithoutMessageInput = {
     id?: IntFieldUpdateOperationsInput | number
+    participants?: StringFieldUpdateOperationsInput | string
     lastMessage?: StringFieldUpdateOperationsInput | string
     isGroup?: BoolFieldUpdateOperationsInput | boolean
     groupName?: NullableStringFieldUpdateOperationsInput | string | null

@@ -6,8 +6,8 @@ const ConversationUsers = z.object({
 
 const createConversation = z.object({
     body:z.object({
-        participants:z.string({required_error:"participants is required"}),
         lastMessage:z.string({required_error:"lastMessage is required"}),
+        participants:z.string({required_error:"participants is required"}),
         conversationsUsers:z.array(ConversationUsers,{required_error:"ConversationUsers is required"})
     })
 })

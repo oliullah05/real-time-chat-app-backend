@@ -38,6 +38,7 @@ enum UserRole {
 
 model Conversation {
   id                 Int                 @id @default(autoincrement())
+  participants       String              
   lastMessage        String
   isGroup            Boolean             @default(false)
   groupName          String?
@@ -59,8 +60,6 @@ model ConversationUsers {
   @@unique([userId, conversationId])
   @@map("conversationUsers")
 }
-
-
 
 model Message {
   id        Int      @id @default(autoincrement())

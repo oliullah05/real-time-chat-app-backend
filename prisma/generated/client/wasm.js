@@ -133,6 +133,7 @@ exports.Prisma.UserScalarFieldEnum = {
 
 exports.Prisma.ConversationScalarFieldEnum = {
   id: 'id',
+  participants: 'participants',
   lastMessage: 'lastMessage',
   isGroup: 'isGroup',
   groupName: 'groupName',
