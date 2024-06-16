@@ -116,15 +116,15 @@ const getMyConversations = async (pagination: TPagination, id: string) => {
       participants: true,
       isGroup: true,
       groupName: true,
-      groupPhoto:true,
+      groupPhoto: true,
       isDeleted: true,
       conversationsUsers: {
         include: {
           user: {
             select: {
               profilePhoto: true,
-              name:true,
-              id:true
+              name: true,
+              id: true
             }
           }
         }
@@ -148,17 +148,17 @@ const getMyConversations = async (pagination: TPagination, id: string) => {
   const conversationsWithProfilePhoto = myAllconversations.map((conversation, index) => {
     if (!conversation.isGroup) {
       const conversationUsers = conversation.conversationsUsers.filter(user => user.userId !== id)
-     const receiverProfileId = conversationUsers[0].user.profilePhoto;
-     const receiverProfilePhoto = conversationUsers[0].user.profilePhoto;
-     const receiverProfileName= conversationUsers[0].user.name;
-     return {...conversation,receiverProfileId,receiverProfilePhoto,receiverProfileName}
+      const receiverProfileId = conversationUsers[0].user.id;
+      const receiverProfilePhoto = conversationUsers[0].user.profilePhoto;
+      const receiverProfileName = conversationUsers[0].user.name;
+      return { ...conversation, receiverProfileId, receiverProfilePhoto, receiverProfileName }
     }
     return conversation
   })
 
   // console.log(conversationsWithProfilePhoto);
   return {
-    result:conversationsWithProfilePhoto,
+    result: conversationsWithProfilePhoto,
     meta: {
       page,
       limit,
@@ -167,7 +167,55 @@ const getMyConversations = async (pagination: TPagination, id: string) => {
   };
 };
 
+
+
+const getConversationById = async (conversationId: string, userId: string) => {
+  const conversation = await prisma.conversation.findUniqueOrThrow({
+    where: {
+      id: conversationId
+    },
+    select: {
+      id: true,
+      lastMessage: true,
+      participants: true,
+      isGroup: true,
+      groupName: true,
+      groupPhoto: true,
+      isDeleted: true,
+      conversationsUsers: {
+        include: {
+          user: {
+            select: {
+              profilePhoto: true,
+              name: true,
+              id: true
+            }
+          }
+        }
+      },
+    }
+  })
+
+  if (!conversation.isGroup) {
+    const conversationUsers = conversation.conversationsUsers.filter(user => user.userId !== userId)
+    const receiverProfileId = conversationUsers[0].user.id;
+    const receiverProfilePhoto = conversationUsers[0].user.profilePhoto;
+    const receiverProfileName = conversationUsers[0].user.name;
+    return { ...conversation, receiverProfileId, receiverProfileName, receiverProfilePhoto }
+  }
+
+  return conversation
+}
+
+
+
+
+
+
+
+
 export const ConversationServices = {
   createConversation,
   getMyConversations,
+  getConversationById
 };
