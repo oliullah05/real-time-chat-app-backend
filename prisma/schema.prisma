@@ -61,6 +61,8 @@ model ConversationUsers {
   @@map("conversationUsers")
 }
 
+
+
 model Message {
   id        Int      @id @default(autoincrement())
   message   String

@@ -25,8 +25,11 @@ where:{
 }
 })
 
-if(isConversationExits){
-  throw new ApiError(400,"conversation alrady exits")
+if (isConversationExits) {
+  if (isConversationExits.isGroup) {
+    throw new ApiError(400, "This group chat already exists.");
+  }
+  throw new ApiError(400, "This conversation already exists.");
 }
 
 
@@ -35,6 +38,7 @@ if(isConversationExits){
     const conversation = await txClient.conversation.create({
       data: {
         lastMessage: payload.lastMessage,
+
         participants:SortedParticipants
       },
     });
@@ -50,7 +54,7 @@ if(isConversationExits){
 
     const getConversation = await txClient.conversation.findUniqueOrThrow({
       where: {
-        id: conversation.id,
+        id: conversation.id
       },
       select: {
         id: true,
