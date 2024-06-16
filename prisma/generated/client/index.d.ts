@@ -1222,22 +1222,12 @@ export namespace Prisma {
 
   export type AggregateUser = {
     _count: UserCountAggregateOutputType | null
-    _avg: UserAvgAggregateOutputType | null
-    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
   }
 
-  export type UserAvgAggregateOutputType = {
-    id: number | null
-  }
-
-  export type UserSumAggregateOutputType = {
-    id: number | null
-  }
-
   export type UserMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     email: string | null
     name: string | null
     profilePhoto: string | null
@@ -1249,7 +1239,7 @@ export namespace Prisma {
   }
 
   export type UserMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     email: string | null
     name: string | null
     profilePhoto: string | null
@@ -1273,14 +1263,6 @@ export namespace Prisma {
     _all: number
   }
 
-
-  export type UserAvgAggregateInputType = {
-    id?: true
-  }
-
-  export type UserSumAggregateInputType = {
-    id?: true
-  }
 
   export type UserMinAggregateInputType = {
     id?: true
@@ -1357,18 +1339,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: UserAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: UserSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: UserMinAggregateInputType
@@ -1399,14 +1369,12 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: UserCountAggregateInputType | true
-    _avg?: UserAvgAggregateInputType
-    _sum?: UserSumAggregateInputType
     _min?: UserMinAggregateInputType
     _max?: UserMaxAggregateInputType
   }
 
   export type UserGroupByOutputType = {
-    id: number
+    id: string
     email: string
     name: string
     profilePhoto: string | null
@@ -1416,8 +1384,6 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
-    _avg: UserAvgAggregateOutputType | null
-    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
   }
@@ -1477,7 +1443,7 @@ export namespace Prisma {
       ConversationUsers: Prisma.$ConversationUsersPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       email: string
       name: string
       profilePhoto: string | null
@@ -1883,7 +1849,7 @@ export namespace Prisma {
    * Fields of the User model
    */ 
   interface UserFieldRefs {
-    readonly id: FieldRef<"User", 'Int'>
+    readonly id: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
     readonly name: FieldRef<"User", 'String'>
     readonly profilePhoto: FieldRef<"User", 'String'>
@@ -2267,22 +2233,12 @@ export namespace Prisma {
 
   export type AggregateConversation = {
     _count: ConversationCountAggregateOutputType | null
-    _avg: ConversationAvgAggregateOutputType | null
-    _sum: ConversationSumAggregateOutputType | null
     _min: ConversationMinAggregateOutputType | null
     _max: ConversationMaxAggregateOutputType | null
   }
 
-  export type ConversationAvgAggregateOutputType = {
-    id: number | null
-  }
-
-  export type ConversationSumAggregateOutputType = {
-    id: number | null
-  }
-
   export type ConversationMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     participants: string | null
     lastMessage: string | null
     isGroup: boolean | null
@@ -2293,7 +2249,7 @@ export namespace Prisma {
   }
 
   export type ConversationMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     participants: string | null
     lastMessage: string | null
     isGroup: boolean | null
@@ -2315,14 +2271,6 @@ export namespace Prisma {
     _all: number
   }
 
-
-  export type ConversationAvgAggregateInputType = {
-    id?: true
-  }
-
-  export type ConversationSumAggregateInputType = {
-    id?: true
-  }
 
   export type ConversationMinAggregateInputType = {
     id?: true
@@ -2396,18 +2344,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: ConversationAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: ConversationSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: ConversationMinAggregateInputType
@@ -2438,14 +2374,12 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: ConversationCountAggregateInputType | true
-    _avg?: ConversationAvgAggregateInputType
-    _sum?: ConversationSumAggregateInputType
     _min?: ConversationMinAggregateInputType
     _max?: ConversationMaxAggregateInputType
   }
 
   export type ConversationGroupByOutputType = {
-    id: number
+    id: string
     participants: string
     lastMessage: string
     isGroup: boolean
@@ -2454,8 +2388,6 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     _count: ConversationCountAggregateOutputType | null
-    _avg: ConversationAvgAggregateOutputType | null
-    _sum: ConversationSumAggregateOutputType | null
     _min: ConversationMinAggregateOutputType | null
     _max: ConversationMaxAggregateOutputType | null
   }
@@ -2513,7 +2445,7 @@ export namespace Prisma {
       Message: Prisma.$MessagePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       participants: string
       lastMessage: string
       isGroup: boolean
@@ -2918,7 +2850,7 @@ export namespace Prisma {
    * Fields of the Conversation model
    */ 
   interface ConversationFieldRefs {
-    readonly id: FieldRef<"Conversation", 'Int'>
+    readonly id: FieldRef<"Conversation", 'String'>
     readonly participants: FieldRef<"Conversation", 'String'>
     readonly lastMessage: FieldRef<"Conversation", 'String'>
     readonly isGroup: FieldRef<"Conversation", 'Boolean'>
@@ -3301,30 +3233,18 @@ export namespace Prisma {
 
   export type AggregateConversationUsers = {
     _count: ConversationUsersCountAggregateOutputType | null
-    _avg: ConversationUsersAvgAggregateOutputType | null
-    _sum: ConversationUsersSumAggregateOutputType | null
     _min: ConversationUsersMinAggregateOutputType | null
     _max: ConversationUsersMaxAggregateOutputType | null
   }
 
-  export type ConversationUsersAvgAggregateOutputType = {
-    userId: number | null
-    conversationId: number | null
-  }
-
-  export type ConversationUsersSumAggregateOutputType = {
-    userId: number | null
-    conversationId: number | null
-  }
-
   export type ConversationUsersMinAggregateOutputType = {
-    userId: number | null
-    conversationId: number | null
+    userId: string | null
+    conversationId: string | null
   }
 
   export type ConversationUsersMaxAggregateOutputType = {
-    userId: number | null
-    conversationId: number | null
+    userId: string | null
+    conversationId: string | null
   }
 
   export type ConversationUsersCountAggregateOutputType = {
@@ -3333,16 +3253,6 @@ export namespace Prisma {
     _all: number
   }
 
-
-  export type ConversationUsersAvgAggregateInputType = {
-    userId?: true
-    conversationId?: true
-  }
-
-  export type ConversationUsersSumAggregateInputType = {
-    userId?: true
-    conversationId?: true
-  }
 
   export type ConversationUsersMinAggregateInputType = {
     userId?: true
@@ -3398,18 +3308,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: ConversationUsersAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: ConversationUsersSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: ConversationUsersMinAggregateInputType
@@ -3440,18 +3338,14 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: ConversationUsersCountAggregateInputType | true
-    _avg?: ConversationUsersAvgAggregateInputType
-    _sum?: ConversationUsersSumAggregateInputType
     _min?: ConversationUsersMinAggregateInputType
     _max?: ConversationUsersMaxAggregateInputType
   }
 
   export type ConversationUsersGroupByOutputType = {
-    userId: number
-    conversationId: number
+    userId: string
+    conversationId: string
     _count: ConversationUsersCountAggregateOutputType | null
-    _avg: ConversationUsersAvgAggregateOutputType | null
-    _sum: ConversationUsersSumAggregateOutputType | null
     _min: ConversationUsersMinAggregateOutputType | null
     _max: ConversationUsersMaxAggregateOutputType | null
   }
@@ -3495,8 +3389,8 @@ export namespace Prisma {
       conversation: Prisma.$ConversationPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      userId: number
-      conversationId: number
+      userId: string
+      conversationId: string
     }, ExtArgs["result"]["conversationUsers"]>
     composites: {}
   }
@@ -3894,8 +3788,8 @@ export namespace Prisma {
    * Fields of the ConversationUsers model
    */ 
   interface ConversationUsersFieldRefs {
-    readonly userId: FieldRef<"ConversationUsers", 'Int'>
-    readonly conversationId: FieldRef<"ConversationUsers", 'Int'>
+    readonly userId: FieldRef<"ConversationUsers", 'String'>
+    readonly conversationId: FieldRef<"ConversationUsers", 'String'>
   }
     
 
@@ -4229,44 +4123,30 @@ export namespace Prisma {
 
   export type AggregateMessage = {
     _count: MessageCountAggregateOutputType | null
-    _avg: MessageAvgAggregateOutputType | null
-    _sum: MessageSumAggregateOutputType | null
     _min: MessageMinAggregateOutputType | null
     _max: MessageMaxAggregateOutputType | null
   }
 
-  export type MessageAvgAggregateOutputType = {
-    id: number | null
-    conversationId: number | null
-    sender: number | null
-  }
-
-  export type MessageSumAggregateOutputType = {
-    id: number | null
-    conversationId: number | null
-    sender: number | null
-  }
-
   export type MessageMinAggregateOutputType = {
-    id: number | null
+    id: string | null
     message: string | null
     type: string | null
     isDeleted: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
-    conversationId: number | null
-    sender: number | null
+    conversationId: string | null
+    sender: string | null
   }
 
   export type MessageMaxAggregateOutputType = {
-    id: number | null
+    id: string | null
     message: string | null
     type: string | null
     isDeleted: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
-    conversationId: number | null
-    sender: number | null
+    conversationId: string | null
+    sender: string | null
   }
 
   export type MessageCountAggregateOutputType = {
@@ -4281,18 +4161,6 @@ export namespace Prisma {
     _all: number
   }
 
-
-  export type MessageAvgAggregateInputType = {
-    id?: true
-    conversationId?: true
-    sender?: true
-  }
-
-  export type MessageSumAggregateInputType = {
-    id?: true
-    conversationId?: true
-    sender?: true
-  }
 
   export type MessageMinAggregateInputType = {
     id?: true
@@ -4366,18 +4234,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: MessageAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: MessageSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: MessageMinAggregateInputType
@@ -4408,24 +4264,20 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: MessageCountAggregateInputType | true
-    _avg?: MessageAvgAggregateInputType
-    _sum?: MessageSumAggregateInputType
     _min?: MessageMinAggregateInputType
     _max?: MessageMaxAggregateInputType
   }
 
   export type MessageGroupByOutputType = {
-    id: number
+    id: string
     message: string
     type: string | null
     isDeleted: boolean
     createdAt: Date
     updatedAt: Date
-    conversationId: number
-    sender: number
+    conversationId: string
+    sender: string
     _count: MessageCountAggregateOutputType | null
-    _avg: MessageAvgAggregateOutputType | null
-    _sum: MessageSumAggregateOutputType | null
     _min: MessageMinAggregateOutputType | null
     _max: MessageMaxAggregateOutputType | null
   }
@@ -4481,14 +4333,14 @@ export namespace Prisma {
       senderInfo: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      id: string
       message: string
       type: string | null
       isDeleted: boolean
       createdAt: Date
       updatedAt: Date
-      conversationId: number
-      sender: number
+      conversationId: string
+      sender: string
     }, ExtArgs["result"]["message"]>
     composites: {}
   }
@@ -4886,14 +4738,14 @@ export namespace Prisma {
    * Fields of the Message model
    */ 
   interface MessageFieldRefs {
-    readonly id: FieldRef<"Message", 'Int'>
+    readonly id: FieldRef<"Message", 'String'>
     readonly message: FieldRef<"Message", 'String'>
     readonly type: FieldRef<"Message", 'String'>
     readonly isDeleted: FieldRef<"Message", 'Boolean'>
     readonly createdAt: FieldRef<"Message", 'DateTime'>
     readonly updatedAt: FieldRef<"Message", 'DateTime'>
-    readonly conversationId: FieldRef<"Message", 'Int'>
-    readonly sender: FieldRef<"Message", 'Int'>
+    readonly conversationId: FieldRef<"Message", 'String'>
+    readonly sender: FieldRef<"Message", 'String'>
   }
     
 
@@ -5316,20 +5168,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Int'
-   */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-  /**
-   * Reference to a field of type 'Int[]'
-   */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-  /**
    * Reference to a field of type 'String'
    */
   export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
@@ -5379,16 +5217,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Float'
+   * Reference to a field of type 'Int'
    */
-  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
     
 
 
   /**
-   * Reference to a field of type 'Float[]'
+   * Reference to a field of type 'Int[]'
    */
-  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
   /**
    * Deep Input Types
@@ -5399,7 +5237,7 @@ export namespace Prisma {
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
-    id?: IntFilter<"User"> | number
+    id?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
     name?: StringFilter<"User"> | string
     profilePhoto?: StringNullableFilter<"User"> | string | null
@@ -5427,7 +5265,7 @@ export namespace Prisma {
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     email?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
@@ -5454,17 +5292,15 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
-    _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
-    _sum?: UserSumOrderByAggregateInput
   }
 
   export type UserScalarWhereWithAggregatesInput = {
     AND?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     OR?: UserScalarWhereWithAggregatesInput[]
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"User"> | number
+    id?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
     name?: StringWithAggregatesFilter<"User"> | string
     profilePhoto?: StringNullableWithAggregatesFilter<"User"> | string | null
@@ -5479,7 +5315,7 @@ export namespace Prisma {
     AND?: ConversationWhereInput | ConversationWhereInput[]
     OR?: ConversationWhereInput[]
     NOT?: ConversationWhereInput | ConversationWhereInput[]
-    id?: IntFilter<"Conversation"> | number
+    id?: StringFilter<"Conversation"> | string
     participants?: StringFilter<"Conversation"> | string
     lastMessage?: StringFilter<"Conversation"> | string
     isGroup?: BoolFilter<"Conversation"> | boolean
@@ -5505,7 +5341,7 @@ export namespace Prisma {
   }
 
   export type ConversationWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     AND?: ConversationWhereInput | ConversationWhereInput[]
     OR?: ConversationWhereInput[]
     NOT?: ConversationWhereInput | ConversationWhereInput[]
@@ -5530,17 +5366,15 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ConversationCountOrderByAggregateInput
-    _avg?: ConversationAvgOrderByAggregateInput
     _max?: ConversationMaxOrderByAggregateInput
     _min?: ConversationMinOrderByAggregateInput
-    _sum?: ConversationSumOrderByAggregateInput
   }
 
   export type ConversationScalarWhereWithAggregatesInput = {
     AND?: ConversationScalarWhereWithAggregatesInput | ConversationScalarWhereWithAggregatesInput[]
     OR?: ConversationScalarWhereWithAggregatesInput[]
     NOT?: ConversationScalarWhereWithAggregatesInput | ConversationScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Conversation"> | number
+    id?: StringWithAggregatesFilter<"Conversation"> | string
     participants?: StringWithAggregatesFilter<"Conversation"> | string
     lastMessage?: StringWithAggregatesFilter<"Conversation"> | string
     isGroup?: BoolWithAggregatesFilter<"Conversation"> | boolean
@@ -5554,8 +5388,8 @@ export namespace Prisma {
     AND?: ConversationUsersWhereInput | ConversationUsersWhereInput[]
     OR?: ConversationUsersWhereInput[]
     NOT?: ConversationUsersWhereInput | ConversationUsersWhereInput[]
-    userId?: IntFilter<"ConversationUsers"> | number
-    conversationId?: IntFilter<"ConversationUsers"> | number
+    userId?: StringFilter<"ConversationUsers"> | string
+    conversationId?: StringFilter<"ConversationUsers"> | string
     user?: XOR<UserRelationFilter, UserWhereInput>
     conversation?: XOR<ConversationRelationFilter, ConversationWhereInput>
   }
@@ -5572,8 +5406,8 @@ export namespace Prisma {
     AND?: ConversationUsersWhereInput | ConversationUsersWhereInput[]
     OR?: ConversationUsersWhereInput[]
     NOT?: ConversationUsersWhereInput | ConversationUsersWhereInput[]
-    userId?: IntFilter<"ConversationUsers"> | number
-    conversationId?: IntFilter<"ConversationUsers"> | number
+    userId?: StringFilter<"ConversationUsers"> | string
+    conversationId?: StringFilter<"ConversationUsers"> | string
     user?: XOR<UserRelationFilter, UserWhereInput>
     conversation?: XOR<ConversationRelationFilter, ConversationWhereInput>
   }, "userId_conversationId">
@@ -5582,32 +5416,30 @@ export namespace Prisma {
     userId?: SortOrder
     conversationId?: SortOrder
     _count?: ConversationUsersCountOrderByAggregateInput
-    _avg?: ConversationUsersAvgOrderByAggregateInput
     _max?: ConversationUsersMaxOrderByAggregateInput
     _min?: ConversationUsersMinOrderByAggregateInput
-    _sum?: ConversationUsersSumOrderByAggregateInput
   }
 
   export type ConversationUsersScalarWhereWithAggregatesInput = {
     AND?: ConversationUsersScalarWhereWithAggregatesInput | ConversationUsersScalarWhereWithAggregatesInput[]
     OR?: ConversationUsersScalarWhereWithAggregatesInput[]
     NOT?: ConversationUsersScalarWhereWithAggregatesInput | ConversationUsersScalarWhereWithAggregatesInput[]
-    userId?: IntWithAggregatesFilter<"ConversationUsers"> | number
-    conversationId?: IntWithAggregatesFilter<"ConversationUsers"> | number
+    userId?: StringWithAggregatesFilter<"ConversationUsers"> | string
+    conversationId?: StringWithAggregatesFilter<"ConversationUsers"> | string
   }
 
   export type MessageWhereInput = {
     AND?: MessageWhereInput | MessageWhereInput[]
     OR?: MessageWhereInput[]
     NOT?: MessageWhereInput | MessageWhereInput[]
-    id?: IntFilter<"Message"> | number
+    id?: StringFilter<"Message"> | string
     message?: StringFilter<"Message"> | string
     type?: StringNullableFilter<"Message"> | string | null
     isDeleted?: BoolFilter<"Message"> | boolean
     createdAt?: DateTimeFilter<"Message"> | Date | string
     updatedAt?: DateTimeFilter<"Message"> | Date | string
-    conversationId?: IntFilter<"Message"> | number
-    sender?: IntFilter<"Message"> | number
+    conversationId?: StringFilter<"Message"> | string
+    sender?: StringFilter<"Message"> | string
     conversation?: XOR<ConversationRelationFilter, ConversationWhereInput>
     senderInfo?: XOR<UserRelationFilter, UserWhereInput>
   }
@@ -5626,7 +5458,7 @@ export namespace Prisma {
   }
 
   export type MessageWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    id?: string
     AND?: MessageWhereInput | MessageWhereInput[]
     OR?: MessageWhereInput[]
     NOT?: MessageWhereInput | MessageWhereInput[]
@@ -5635,8 +5467,8 @@ export namespace Prisma {
     isDeleted?: BoolFilter<"Message"> | boolean
     createdAt?: DateTimeFilter<"Message"> | Date | string
     updatedAt?: DateTimeFilter<"Message"> | Date | string
-    conversationId?: IntFilter<"Message"> | number
-    sender?: IntFilter<"Message"> | number
+    conversationId?: StringFilter<"Message"> | string
+    sender?: StringFilter<"Message"> | string
     conversation?: XOR<ConversationRelationFilter, ConversationWhereInput>
     senderInfo?: XOR<UserRelationFilter, UserWhereInput>
   }, "id">
@@ -5651,27 +5483,26 @@ export namespace Prisma {
     conversationId?: SortOrder
     sender?: SortOrder
     _count?: MessageCountOrderByAggregateInput
-    _avg?: MessageAvgOrderByAggregateInput
     _max?: MessageMaxOrderByAggregateInput
     _min?: MessageMinOrderByAggregateInput
-    _sum?: MessageSumOrderByAggregateInput
   }
 
   export type MessageScalarWhereWithAggregatesInput = {
     AND?: MessageScalarWhereWithAggregatesInput | MessageScalarWhereWithAggregatesInput[]
     OR?: MessageScalarWhereWithAggregatesInput[]
     NOT?: MessageScalarWhereWithAggregatesInput | MessageScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Message"> | number
+    id?: StringWithAggregatesFilter<"Message"> | string
     message?: StringWithAggregatesFilter<"Message"> | string
     type?: StringNullableWithAggregatesFilter<"Message"> | string | null
     isDeleted?: BoolWithAggregatesFilter<"Message"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Message"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Message"> | Date | string
-    conversationId?: IntWithAggregatesFilter<"Message"> | number
-    sender?: IntWithAggregatesFilter<"Message"> | number
+    conversationId?: StringWithAggregatesFilter<"Message"> | string
+    sender?: StringWithAggregatesFilter<"Message"> | string
   }
 
   export type UserCreateInput = {
+    id?: string
     email: string
     name: string
     profilePhoto?: string | null
@@ -5685,7 +5516,7 @@ export namespace Prisma {
   }
 
   export type UserUncheckedCreateInput = {
-    id?: number
+    id?: string
     email: string
     name: string
     profilePhoto?: string | null
@@ -5699,6 +5530,7 @@ export namespace Prisma {
   }
 
   export type UserUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     profilePhoto?: NullableStringFieldUpdateOperationsInput | string | null
@@ -5712,7 +5544,7 @@ export namespace Prisma {
   }
 
   export type UserUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     profilePhoto?: NullableStringFieldUpdateOperationsInput | string | null
@@ -5726,7 +5558,7 @@ export namespace Prisma {
   }
 
   export type UserCreateManyInput = {
-    id?: number
+    id?: string
     email: string
     name: string
     profilePhoto?: string | null
@@ -5738,6 +5570,7 @@ export namespace Prisma {
   }
 
   export type UserUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     profilePhoto?: NullableStringFieldUpdateOperationsInput | string | null
@@ -5749,7 +5582,7 @@ export namespace Prisma {
   }
 
   export type UserUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     profilePhoto?: NullableStringFieldUpdateOperationsInput | string | null
@@ -5761,6 +5594,7 @@ export namespace Prisma {
   }
 
   export type ConversationCreateInput = {
+    id?: string
     participants: string
     lastMessage: string
     isGroup?: boolean
@@ -5773,7 +5607,7 @@ export namespace Prisma {
   }
 
   export type ConversationUncheckedCreateInput = {
-    id?: number
+    id?: string
     participants: string
     lastMessage: string
     isGroup?: boolean
@@ -5786,6 +5620,7 @@ export namespace Prisma {
   }
 
   export type ConversationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     participants?: StringFieldUpdateOperationsInput | string
     lastMessage?: StringFieldUpdateOperationsInput | string
     isGroup?: BoolFieldUpdateOperationsInput | boolean
@@ -5798,7 +5633,7 @@ export namespace Prisma {
   }
 
   export type ConversationUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     participants?: StringFieldUpdateOperationsInput | string
     lastMessage?: StringFieldUpdateOperationsInput | string
     isGroup?: BoolFieldUpdateOperationsInput | boolean
@@ -5811,7 +5646,7 @@ export namespace Prisma {
   }
 
   export type ConversationCreateManyInput = {
-    id?: number
+    id?: string
     participants: string
     lastMessage: string
     isGroup?: boolean
@@ -5822,6 +5657,7 @@ export namespace Prisma {
   }
 
   export type ConversationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     participants?: StringFieldUpdateOperationsInput | string
     lastMessage?: StringFieldUpdateOperationsInput | string
     isGroup?: BoolFieldUpdateOperationsInput | boolean
@@ -5832,7 +5668,7 @@ export namespace Prisma {
   }
 
   export type ConversationUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     participants?: StringFieldUpdateOperationsInput | string
     lastMessage?: StringFieldUpdateOperationsInput | string
     isGroup?: BoolFieldUpdateOperationsInput | boolean
@@ -5848,8 +5684,8 @@ export namespace Prisma {
   }
 
   export type ConversationUsersUncheckedCreateInput = {
-    userId: number
-    conversationId: number
+    userId: string
+    conversationId: string
   }
 
   export type ConversationUsersUpdateInput = {
@@ -5858,13 +5694,13 @@ export namespace Prisma {
   }
 
   export type ConversationUsersUncheckedUpdateInput = {
-    userId?: IntFieldUpdateOperationsInput | number
-    conversationId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
+    conversationId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ConversationUsersCreateManyInput = {
-    userId: number
-    conversationId: number
+    userId: string
+    conversationId: string
   }
 
   export type ConversationUsersUpdateManyMutationInput = {
@@ -5872,11 +5708,12 @@ export namespace Prisma {
   }
 
   export type ConversationUsersUncheckedUpdateManyInput = {
-    userId?: IntFieldUpdateOperationsInput | number
-    conversationId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
+    conversationId?: StringFieldUpdateOperationsInput | string
   }
 
   export type MessageCreateInput = {
+    id?: string
     message: string
     type?: string | null
     isDeleted?: boolean
@@ -5887,17 +5724,18 @@ export namespace Prisma {
   }
 
   export type MessageUncheckedCreateInput = {
-    id?: number
+    id?: string
     message: string
     type?: string | null
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    conversationId: number
-    sender: number
+    conversationId: string
+    sender: string
   }
 
   export type MessageUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     type?: NullableStringFieldUpdateOperationsInput | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
@@ -5908,28 +5746,29 @@ export namespace Prisma {
   }
 
   export type MessageUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     type?: NullableStringFieldUpdateOperationsInput | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    conversationId?: IntFieldUpdateOperationsInput | number
-    sender?: IntFieldUpdateOperationsInput | number
+    conversationId?: StringFieldUpdateOperationsInput | string
+    sender?: StringFieldUpdateOperationsInput | string
   }
 
   export type MessageCreateManyInput = {
-    id?: number
+    id?: string
     message: string
     type?: string | null
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    conversationId: number
-    sender: number
+    conversationId: string
+    sender: string
   }
 
   export type MessageUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     type?: NullableStringFieldUpdateOperationsInput | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
@@ -5938,25 +5777,14 @@ export namespace Prisma {
   }
 
   export type MessageUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     type?: NullableStringFieldUpdateOperationsInput | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    conversationId?: IntFieldUpdateOperationsInput | number
-    sender?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
+    conversationId?: StringFieldUpdateOperationsInput | string
+    sender?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -6049,10 +5877,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type UserAvgOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
   export type UserMaxOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
@@ -6075,26 +5899,6 @@ export namespace Prisma {
     isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-  }
-
-  export type UserSumOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -6176,10 +5980,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type ConversationAvgOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
   export type ConversationMaxOrderByAggregateInput = {
     id?: SortOrder
     participants?: SortOrder
@@ -6202,10 +6002,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type ConversationSumOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
   export type UserRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
@@ -6217,16 +6013,11 @@ export namespace Prisma {
   }
 
   export type ConversationUsersUserIdConversationIdCompoundUniqueInput = {
-    userId: number
-    conversationId: number
+    userId: string
+    conversationId: string
   }
 
   export type ConversationUsersCountOrderByAggregateInput = {
-    userId?: SortOrder
-    conversationId?: SortOrder
-  }
-
-  export type ConversationUsersAvgOrderByAggregateInput = {
     userId?: SortOrder
     conversationId?: SortOrder
   }
@@ -6241,11 +6032,6 @@ export namespace Prisma {
     conversationId?: SortOrder
   }
 
-  export type ConversationUsersSumOrderByAggregateInput = {
-    userId?: SortOrder
-    conversationId?: SortOrder
-  }
-
   export type MessageCountOrderByAggregateInput = {
     id?: SortOrder
     message?: SortOrder
@@ -6253,12 +6039,6 @@ export namespace Prisma {
     isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    conversationId?: SortOrder
-    sender?: SortOrder
-  }
-
-  export type MessageAvgOrderByAggregateInput = {
-    id?: SortOrder
     conversationId?: SortOrder
     sender?: SortOrder
   }
@@ -6281,12 +6061,6 @@ export namespace Prisma {
     isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    conversationId?: SortOrder
-    sender?: SortOrder
-  }
-
-  export type MessageSumOrderByAggregateInput = {
-    id?: SortOrder
     conversationId?: SortOrder
     sender?: SortOrder
   }
@@ -6365,14 +6139,6 @@ export namespace Prisma {
     update?: ConversationUsersUpdateWithWhereUniqueWithoutUserInput | ConversationUsersUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: ConversationUsersUpdateManyWithWhereWithoutUserInput | ConversationUsersUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: ConversationUsersScalarWhereInput | ConversationUsersScalarWhereInput[]
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type MessageUncheckedUpdateManyWithoutSenderInfoNestedInput = {
@@ -6543,17 +6309,6 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSentMessagesInput, UserUpdateWithoutSentMessagesInput>, UserUncheckedUpdateWithoutSentMessagesInput>
   }
 
-  export type NestedIntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -6605,33 +6360,6 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -6647,6 +6375,17 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type NestedIntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -6710,6 +6449,7 @@ export namespace Prisma {
   }
 
   export type MessageCreateWithoutSenderInfoInput = {
+    id?: string
     message: string
     type?: string | null
     isDeleted?: boolean
@@ -6719,13 +6459,13 @@ export namespace Prisma {
   }
 
   export type MessageUncheckedCreateWithoutSenderInfoInput = {
-    id?: number
+    id?: string
     message: string
     type?: string | null
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    conversationId: number
+    conversationId: string
   }
 
   export type MessageCreateOrConnectWithoutSenderInfoInput = {
@@ -6743,7 +6483,7 @@ export namespace Prisma {
   }
 
   export type ConversationUsersUncheckedCreateWithoutUserInput = {
-    conversationId: number
+    conversationId: string
   }
 
   export type ConversationUsersCreateOrConnectWithoutUserInput = {
@@ -6776,14 +6516,14 @@ export namespace Prisma {
     AND?: MessageScalarWhereInput | MessageScalarWhereInput[]
     OR?: MessageScalarWhereInput[]
     NOT?: MessageScalarWhereInput | MessageScalarWhereInput[]
-    id?: IntFilter<"Message"> | number
+    id?: StringFilter<"Message"> | string
     message?: StringFilter<"Message"> | string
     type?: StringNullableFilter<"Message"> | string | null
     isDeleted?: BoolFilter<"Message"> | boolean
     createdAt?: DateTimeFilter<"Message"> | Date | string
     updatedAt?: DateTimeFilter<"Message"> | Date | string
-    conversationId?: IntFilter<"Message"> | number
-    sender?: IntFilter<"Message"> | number
+    conversationId?: StringFilter<"Message"> | string
+    sender?: StringFilter<"Message"> | string
   }
 
   export type ConversationUsersUpsertWithWhereUniqueWithoutUserInput = {
@@ -6806,8 +6546,8 @@ export namespace Prisma {
     AND?: ConversationUsersScalarWhereInput | ConversationUsersScalarWhereInput[]
     OR?: ConversationUsersScalarWhereInput[]
     NOT?: ConversationUsersScalarWhereInput | ConversationUsersScalarWhereInput[]
-    userId?: IntFilter<"ConversationUsers"> | number
-    conversationId?: IntFilter<"ConversationUsers"> | number
+    userId?: StringFilter<"ConversationUsers"> | string
+    conversationId?: StringFilter<"ConversationUsers"> | string
   }
 
   export type ConversationUsersCreateWithoutConversationInput = {
@@ -6815,7 +6555,7 @@ export namespace Prisma {
   }
 
   export type ConversationUsersUncheckedCreateWithoutConversationInput = {
-    userId: number
+    userId: string
   }
 
   export type ConversationUsersCreateOrConnectWithoutConversationInput = {
@@ -6829,6 +6569,7 @@ export namespace Prisma {
   }
 
   export type MessageCreateWithoutConversationInput = {
+    id?: string
     message: string
     type?: string | null
     isDeleted?: boolean
@@ -6838,13 +6579,13 @@ export namespace Prisma {
   }
 
   export type MessageUncheckedCreateWithoutConversationInput = {
-    id?: number
+    id?: string
     message: string
     type?: string | null
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    sender: number
+    sender: string
   }
 
   export type MessageCreateOrConnectWithoutConversationInput = {
@@ -6890,6 +6631,7 @@ export namespace Prisma {
   }
 
   export type UserCreateWithoutConversationUsersInput = {
+    id?: string
     email: string
     name: string
     profilePhoto?: string | null
@@ -6902,7 +6644,7 @@ export namespace Prisma {
   }
 
   export type UserUncheckedCreateWithoutConversationUsersInput = {
-    id?: number
+    id?: string
     email: string
     name: string
     profilePhoto?: string | null
@@ -6920,6 +6662,7 @@ export namespace Prisma {
   }
 
   export type ConversationCreateWithoutConversationsUsersInput = {
+    id?: string
     participants: string
     lastMessage: string
     isGroup?: boolean
@@ -6931,7 +6674,7 @@ export namespace Prisma {
   }
 
   export type ConversationUncheckedCreateWithoutConversationsUsersInput = {
-    id?: number
+    id?: string
     participants: string
     lastMessage: string
     isGroup?: boolean
@@ -6959,6 +6702,7 @@ export namespace Prisma {
   }
 
   export type UserUpdateWithoutConversationUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     profilePhoto?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6971,7 +6715,7 @@ export namespace Prisma {
   }
 
   export type UserUncheckedUpdateWithoutConversationUsersInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     profilePhoto?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6995,6 +6739,7 @@ export namespace Prisma {
   }
 
   export type ConversationUpdateWithoutConversationsUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
     participants?: StringFieldUpdateOperationsInput | string
     lastMessage?: StringFieldUpdateOperationsInput | string
     isGroup?: BoolFieldUpdateOperationsInput | boolean
@@ -7006,7 +6751,7 @@ export namespace Prisma {
   }
 
   export type ConversationUncheckedUpdateWithoutConversationsUsersInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     participants?: StringFieldUpdateOperationsInput | string
     lastMessage?: StringFieldUpdateOperationsInput | string
     isGroup?: BoolFieldUpdateOperationsInput | boolean
@@ -7018,6 +6763,7 @@ export namespace Prisma {
   }
 
   export type ConversationCreateWithoutMessageInput = {
+    id?: string
     participants: string
     lastMessage: string
     isGroup?: boolean
@@ -7029,7 +6775,7 @@ export namespace Prisma {
   }
 
   export type ConversationUncheckedCreateWithoutMessageInput = {
-    id?: number
+    id?: string
     participants: string
     lastMessage: string
     isGroup?: boolean
@@ -7046,6 +6792,7 @@ export namespace Prisma {
   }
 
   export type UserCreateWithoutSentMessagesInput = {
+    id?: string
     email: string
     name: string
     profilePhoto?: string | null
@@ -7058,7 +6805,7 @@ export namespace Prisma {
   }
 
   export type UserUncheckedCreateWithoutSentMessagesInput = {
-    id?: number
+    id?: string
     email: string
     name: string
     profilePhoto?: string | null
@@ -7087,6 +6834,7 @@ export namespace Prisma {
   }
 
   export type ConversationUpdateWithoutMessageInput = {
+    id?: StringFieldUpdateOperationsInput | string
     participants?: StringFieldUpdateOperationsInput | string
     lastMessage?: StringFieldUpdateOperationsInput | string
     isGroup?: BoolFieldUpdateOperationsInput | boolean
@@ -7098,7 +6846,7 @@ export namespace Prisma {
   }
 
   export type ConversationUncheckedUpdateWithoutMessageInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     participants?: StringFieldUpdateOperationsInput | string
     lastMessage?: StringFieldUpdateOperationsInput | string
     isGroup?: BoolFieldUpdateOperationsInput | boolean
@@ -7121,6 +6869,7 @@ export namespace Prisma {
   }
 
   export type UserUpdateWithoutSentMessagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     profilePhoto?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7133,7 +6882,7 @@ export namespace Prisma {
   }
 
   export type UserUncheckedUpdateWithoutSentMessagesInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     profilePhoto?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7146,20 +6895,21 @@ export namespace Prisma {
   }
 
   export type MessageCreateManySenderInfoInput = {
-    id?: number
+    id?: string
     message: string
     type?: string | null
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    conversationId: number
+    conversationId: string
   }
 
   export type ConversationUsersCreateManyUserInput = {
-    conversationId: number
+    conversationId: string
   }
 
   export type MessageUpdateWithoutSenderInfoInput = {
+    id?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     type?: NullableStringFieldUpdateOperationsInput | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
@@ -7169,23 +6919,23 @@ export namespace Prisma {
   }
 
   export type MessageUncheckedUpdateWithoutSenderInfoInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     type?: NullableStringFieldUpdateOperationsInput | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    conversationId?: IntFieldUpdateOperationsInput | number
+    conversationId?: StringFieldUpdateOperationsInput | string
   }
 
   export type MessageUncheckedUpdateManyWithoutSenderInfoInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     type?: NullableStringFieldUpdateOperationsInput | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    conversationId?: IntFieldUpdateOperationsInput | number
+    conversationId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ConversationUsersUpdateWithoutUserInput = {
@@ -7193,25 +6943,25 @@ export namespace Prisma {
   }
 
   export type ConversationUsersUncheckedUpdateWithoutUserInput = {
-    conversationId?: IntFieldUpdateOperationsInput | number
+    conversationId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ConversationUsersUncheckedUpdateManyWithoutUserInput = {
-    conversationId?: IntFieldUpdateOperationsInput | number
+    conversationId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ConversationUsersCreateManyConversationInput = {
-    userId: number
+    userId: string
   }
 
   export type MessageCreateManyConversationInput = {
-    id?: number
+    id?: string
     message: string
     type?: string | null
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    sender: number
+    sender: string
   }
 
   export type ConversationUsersUpdateWithoutConversationInput = {
@@ -7219,14 +6969,15 @@ export namespace Prisma {
   }
 
   export type ConversationUsersUncheckedUpdateWithoutConversationInput = {
-    userId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ConversationUsersUncheckedUpdateManyWithoutConversationInput = {
-    userId?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
   }
 
   export type MessageUpdateWithoutConversationInput = {
+    id?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     type?: NullableStringFieldUpdateOperationsInput | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
@@ -7236,23 +6987,23 @@ export namespace Prisma {
   }
 
   export type MessageUncheckedUpdateWithoutConversationInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     type?: NullableStringFieldUpdateOperationsInput | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    sender?: IntFieldUpdateOperationsInput | number
+    sender?: StringFieldUpdateOperationsInput | string
   }
 
   export type MessageUncheckedUpdateManyWithoutConversationInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    id?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     type?: NullableStringFieldUpdateOperationsInput | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    sender?: IntFieldUpdateOperationsInput | number
+    sender?: StringFieldUpdateOperationsInput | string
   }
 
 

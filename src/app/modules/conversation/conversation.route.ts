@@ -11,7 +11,7 @@ validateRequest(ConversationValidations.createConversation),
 ConversationControllers.createConversation);
 
 
-// router.get("/my-conversations", auth("user","admin"),
-// ConversationControllers.getMyConversations);
+router.get("/my-conversations", auth("user","admin"),
+ConversationControllers.getMyConversations);
 
 export const ConversationRoutes = router;

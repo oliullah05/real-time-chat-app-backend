@@ -14,27 +14,27 @@ const createConversation = catchAsync(async(req,res)=>{
      })
 })
 
-// const getMyConversations = catchAsync(async(req,res)=>{
-//     const pagination = pick(req.query,["page","limit"]) as {page:number,limit:number};
-//     const id = req.user.id as string;
+const getMyConversations = catchAsync(async(req,res)=>{
+    const pagination = pick(req.query,["page","limit"]) as {page:number,limit:number};
+    const id = req.user.id as string;
     
-//     const result = await ConversationServices.getMyConversations(pagination,id);
-//      sendResponse(res,{
-//         success:true,
-//         message:"Conversations retrieved successfully",
-//         statusCode:200,
-//         data:result.result,
-//         meta:{
-//             page:result.meta.page,
-//             limit:result.meta.limit,
-//             total:result.meta.total
-//         }
-//      })
-// })
+    const result = await ConversationServices.getMyConversations(pagination,id);
+     sendResponse(res,{
+        success:true,
+        message:"My conversations retrieved successfully",
+        statusCode:200,
+        data:result.result,
+        meta:{
+            page:result.meta.page,
+            limit:result.meta.limit,
+            total:result.meta.total
+        }
+     })
+})
 
 
 
 export const ConversationControllers = {
     createConversation,
-    // getMyConversations
+    getMyConversations
 }

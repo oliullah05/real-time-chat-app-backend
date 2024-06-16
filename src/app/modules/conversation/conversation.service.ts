@@ -44,7 +44,7 @@ if (isConversationExits) {
     });
 
     const participantUsersData = payload.conversationsUsers.map((user) => ({
-      userId:Number(user.userId),
+      userId:user.userId,
       conversationId: conversation.id,
     }));
 
@@ -88,55 +88,56 @@ if (isConversationExits) {
 
 
 
-// const getMyConversations = async (pagination: TPagination,id:string) => {
-//   //  calculate pagination
-//   const page = Number(pagination.page) || 1;
-//   const limit = Number(pagination.limit) || 10;
-//   const skip = (page - 1) * limit
+const getMyConversations = async (pagination: TPagination,id:string) => {
+  //  calculate pagination
+  const page = Number(pagination.page) || 1;
+  const limit = Number(pagination.limit) || 10;
+  const skip = (page - 1) * limit
      
 
 
 
 
 
-//   const result = await prisma.conversation.findMany({
-//     where:{
-//       participants:{
-//         contains:String(id)
-//       }
-//     },
-//     select: {
-//       id: true,
-//       lastMessage: true,
-//       participants:true,
-//       conversationsUsers: true,
-//       isDeleted: true,
-//       createdAt: true,
-//       updatedAt: true,
-//     },
-//     skip,
-//     take: limit,
-//     orderBy:{
-//       updatedAt:"desc"
-//     }
-//   });
+  const result = await prisma.conversation.findMany({
+    where:{
+      participants:{
+        contains:String(id)
+      }
+    },
+    select: {
+      id: true,
+      lastMessage: true,
+      participants:true,
+      isGroup:true,
+      groupName:true,
+      isDeleted: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+    skip,
+    take: limit,
+    orderBy:{
+      updatedAt:"desc"
+    }
+  });
 
-// if(result?.length===0){
-//   throw new ApiError(404,"Conversation not found")
-// }
+if(result?.length===0){
+  throw new ApiError(404,"Conversation not found")
+}
 
 
-//   return {
-//     result,
-//     meta:{
-//       page,
-//       limit,
-//       total:result?.length || 0
-//     }
-//   };
-// };
+  return {
+    result,
+    meta:{
+      page,
+      limit,
+      total:result?.length || 0
+    }
+  };
+};
 
 export const ConversationServices = {
   createConversation,
-  // getMyConversations,
+  getMyConversations,
 };

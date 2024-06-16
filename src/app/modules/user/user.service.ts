@@ -12,7 +12,7 @@ const createUser = async (payload: User) => {
     password,
     Number(config.bcrypt_salt_round as string)
   );
-  
+ 
   const result = await prisma.user.create({
       data: { ...data, password: hashedPassword },
       select:{
