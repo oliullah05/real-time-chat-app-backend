@@ -41,7 +41,8 @@ model Conversation {
   participants       String
   lastMessage        String
   isGroup            Boolean             @default(false)
-  groupName          String?
+  groupName          String?             
+  groupPhoto        String?
   isDeleted          Boolean             @default(false)
   createdAt          DateTime            @default(now())
   updatedAt          DateTime            @updatedAt

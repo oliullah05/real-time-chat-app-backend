@@ -137,6 +137,7 @@ exports.Prisma.ConversationScalarFieldEnum = {
   lastMessage: 'lastMessage',
   isGroup: 'isGroup',
   groupName: 'groupName',
+  groupPhoto: 'groupPhoto',
   isDeleted: 'isDeleted',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

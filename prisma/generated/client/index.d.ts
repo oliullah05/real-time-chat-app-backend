@@ -2243,6 +2243,7 @@ export namespace Prisma {
     lastMessage: string | null
     isGroup: boolean | null
     groupName: string | null
+    groupPhoto: string | null
     isDeleted: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -2254,6 +2255,7 @@ export namespace Prisma {
     lastMessage: string | null
     isGroup: boolean | null
     groupName: string | null
+    groupPhoto: string | null
     isDeleted: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -2265,6 +2267,7 @@ export namespace Prisma {
     lastMessage: number
     isGroup: number
     groupName: number
+    groupPhoto: number
     isDeleted: number
     createdAt: number
     updatedAt: number
@@ -2278,6 +2281,7 @@ export namespace Prisma {
     lastMessage?: true
     isGroup?: true
     groupName?: true
+    groupPhoto?: true
     isDeleted?: true
     createdAt?: true
     updatedAt?: true
@@ -2289,6 +2293,7 @@ export namespace Prisma {
     lastMessage?: true
     isGroup?: true
     groupName?: true
+    groupPhoto?: true
     isDeleted?: true
     createdAt?: true
     updatedAt?: true
@@ -2300,6 +2305,7 @@ export namespace Prisma {
     lastMessage?: true
     isGroup?: true
     groupName?: true
+    groupPhoto?: true
     isDeleted?: true
     createdAt?: true
     updatedAt?: true
@@ -2384,6 +2390,7 @@ export namespace Prisma {
     lastMessage: string
     isGroup: boolean
     groupName: string | null
+    groupPhoto: string | null
     isDeleted: boolean
     createdAt: Date
     updatedAt: Date
@@ -2412,6 +2419,7 @@ export namespace Prisma {
     lastMessage?: boolean
     isGroup?: boolean
     groupName?: boolean
+    groupPhoto?: boolean
     isDeleted?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -2426,6 +2434,7 @@ export namespace Prisma {
     lastMessage?: boolean
     isGroup?: boolean
     groupName?: boolean
+    groupPhoto?: boolean
     isDeleted?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -2450,6 +2459,7 @@ export namespace Prisma {
       lastMessage: string
       isGroup: boolean
       groupName: string | null
+      groupPhoto: string | null
       isDeleted: boolean
       createdAt: Date
       updatedAt: Date
@@ -2855,6 +2865,7 @@ export namespace Prisma {
     readonly lastMessage: FieldRef<"Conversation", 'String'>
     readonly isGroup: FieldRef<"Conversation", 'Boolean'>
     readonly groupName: FieldRef<"Conversation", 'String'>
+    readonly groupPhoto: FieldRef<"Conversation", 'String'>
     readonly isDeleted: FieldRef<"Conversation", 'Boolean'>
     readonly createdAt: FieldRef<"Conversation", 'DateTime'>
     readonly updatedAt: FieldRef<"Conversation", 'DateTime'>
@@ -5108,6 +5119,7 @@ export namespace Prisma {
     lastMessage: 'lastMessage',
     isGroup: 'isGroup',
     groupName: 'groupName',
+    groupPhoto: 'groupPhoto',
     isDeleted: 'isDeleted',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -5320,6 +5332,7 @@ export namespace Prisma {
     lastMessage?: StringFilter<"Conversation"> | string
     isGroup?: BoolFilter<"Conversation"> | boolean
     groupName?: StringNullableFilter<"Conversation"> | string | null
+    groupPhoto?: StringNullableFilter<"Conversation"> | string | null
     isDeleted?: BoolFilter<"Conversation"> | boolean
     createdAt?: DateTimeFilter<"Conversation"> | Date | string
     updatedAt?: DateTimeFilter<"Conversation"> | Date | string
@@ -5333,6 +5346,7 @@ export namespace Prisma {
     lastMessage?: SortOrder
     isGroup?: SortOrder
     groupName?: SortOrderInput | SortOrder
+    groupPhoto?: SortOrderInput | SortOrder
     isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -5349,6 +5363,7 @@ export namespace Prisma {
     lastMessage?: StringFilter<"Conversation"> | string
     isGroup?: BoolFilter<"Conversation"> | boolean
     groupName?: StringNullableFilter<"Conversation"> | string | null
+    groupPhoto?: StringNullableFilter<"Conversation"> | string | null
     isDeleted?: BoolFilter<"Conversation"> | boolean
     createdAt?: DateTimeFilter<"Conversation"> | Date | string
     updatedAt?: DateTimeFilter<"Conversation"> | Date | string
@@ -5362,6 +5377,7 @@ export namespace Prisma {
     lastMessage?: SortOrder
     isGroup?: SortOrder
     groupName?: SortOrderInput | SortOrder
+    groupPhoto?: SortOrderInput | SortOrder
     isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -5379,6 +5395,7 @@ export namespace Prisma {
     lastMessage?: StringWithAggregatesFilter<"Conversation"> | string
     isGroup?: BoolWithAggregatesFilter<"Conversation"> | boolean
     groupName?: StringNullableWithAggregatesFilter<"Conversation"> | string | null
+    groupPhoto?: StringNullableWithAggregatesFilter<"Conversation"> | string | null
     isDeleted?: BoolWithAggregatesFilter<"Conversation"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Conversation"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Conversation"> | Date | string
@@ -5599,6 +5616,7 @@ export namespace Prisma {
     lastMessage: string
     isGroup?: boolean
     groupName?: string | null
+    groupPhoto?: string | null
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5612,6 +5630,7 @@ export namespace Prisma {
     lastMessage: string
     isGroup?: boolean
     groupName?: string | null
+    groupPhoto?: string | null
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5625,6 +5644,7 @@ export namespace Prisma {
     lastMessage?: StringFieldUpdateOperationsInput | string
     isGroup?: BoolFieldUpdateOperationsInput | boolean
     groupName?: NullableStringFieldUpdateOperationsInput | string | null
+    groupPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5638,6 +5658,7 @@ export namespace Prisma {
     lastMessage?: StringFieldUpdateOperationsInput | string
     isGroup?: BoolFieldUpdateOperationsInput | boolean
     groupName?: NullableStringFieldUpdateOperationsInput | string | null
+    groupPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5651,6 +5672,7 @@ export namespace Prisma {
     lastMessage: string
     isGroup?: boolean
     groupName?: string | null
+    groupPhoto?: string | null
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5662,6 +5684,7 @@ export namespace Prisma {
     lastMessage?: StringFieldUpdateOperationsInput | string
     isGroup?: BoolFieldUpdateOperationsInput | boolean
     groupName?: NullableStringFieldUpdateOperationsInput | string | null
+    groupPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5673,6 +5696,7 @@ export namespace Prisma {
     lastMessage?: StringFieldUpdateOperationsInput | string
     isGroup?: BoolFieldUpdateOperationsInput | boolean
     groupName?: NullableStringFieldUpdateOperationsInput | string | null
+    groupPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5975,6 +5999,7 @@ export namespace Prisma {
     lastMessage?: SortOrder
     isGroup?: SortOrder
     groupName?: SortOrder
+    groupPhoto?: SortOrder
     isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -5986,6 +6011,7 @@ export namespace Prisma {
     lastMessage?: SortOrder
     isGroup?: SortOrder
     groupName?: SortOrder
+    groupPhoto?: SortOrder
     isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -5997,6 +6023,7 @@ export namespace Prisma {
     lastMessage?: SortOrder
     isGroup?: SortOrder
     groupName?: SortOrder
+    groupPhoto?: SortOrder
     isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -6667,6 +6694,7 @@ export namespace Prisma {
     lastMessage: string
     isGroup?: boolean
     groupName?: string | null
+    groupPhoto?: string | null
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -6679,6 +6707,7 @@ export namespace Prisma {
     lastMessage: string
     isGroup?: boolean
     groupName?: string | null
+    groupPhoto?: string | null
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -6744,6 +6773,7 @@ export namespace Prisma {
     lastMessage?: StringFieldUpdateOperationsInput | string
     isGroup?: BoolFieldUpdateOperationsInput | boolean
     groupName?: NullableStringFieldUpdateOperationsInput | string | null
+    groupPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6756,6 +6786,7 @@ export namespace Prisma {
     lastMessage?: StringFieldUpdateOperationsInput | string
     isGroup?: BoolFieldUpdateOperationsInput | boolean
     groupName?: NullableStringFieldUpdateOperationsInput | string | null
+    groupPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6768,6 +6799,7 @@ export namespace Prisma {
     lastMessage: string
     isGroup?: boolean
     groupName?: string | null
+    groupPhoto?: string | null
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -6780,6 +6812,7 @@ export namespace Prisma {
     lastMessage: string
     isGroup?: boolean
     groupName?: string | null
+    groupPhoto?: string | null
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -6839,6 +6872,7 @@ export namespace Prisma {
     lastMessage?: StringFieldUpdateOperationsInput | string
     isGroup?: BoolFieldUpdateOperationsInput | boolean
     groupName?: NullableStringFieldUpdateOperationsInput | string | null
+    groupPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6851,6 +6885,7 @@ export namespace Prisma {
     lastMessage?: StringFieldUpdateOperationsInput | string
     isGroup?: BoolFieldUpdateOperationsInput | boolean
     groupName?: NullableStringFieldUpdateOperationsInput | string | null
+    groupPhoto?: NullableStringFieldUpdateOperationsInput | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

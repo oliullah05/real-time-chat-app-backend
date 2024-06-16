@@ -2,14 +2,14 @@ import { Conversation } from "../../../../prisma/generated/client";
 import ApiError from "../../errors/apiError";
 // import ApiError from "../../errors/apiError";
 import prisma from "../../shared/prisma";
-import { TPagination, TParticipantUsers} from "./conversation.type";
+import { TPagination, TParticipantUsers } from "./conversation.type";
 
 const createConversation = async (
   payload: Conversation & {
     conversationsUsers: TParticipantUsers;
   }
 ) => {
-// sort participants
+  // sort participants
 
   const participants = payload.participants;
   const participantsArray = participants.split('/');
@@ -17,33 +17,39 @@ const createConversation = async (
   const SortedParticipants = sortedParticipantsArray.join('/');
 
 
-const isConversationExits = await prisma.conversation.findFirst({
-where:{
-  participants:SortedParticipants,
-  isDeleted:false
-}
-})
+  const isConversationExits = await prisma.conversation.findFirst({
+    where: {
+      participants: SortedParticipants,
+      isDeleted: false
+    }
+  })
 
-if (isConversationExits) {
-  if (isConversationExits.isGroup) {
-    throw new ApiError(400, "This group chat already exists.");
+  if (isConversationExits) {
+    if (isConversationExits.isGroup) {
+      throw new ApiError(400, "This group chat already exists.");
+    }
+    throw new ApiError(400, "This conversation already exists.");
   }
-  throw new ApiError(400, "This conversation already exists.");
-}
 
 
+
+  // check group 2 or higher here...........................................................................................................
+
+  if (payload.isGroup && payload.conversationsUsers.length < 3) {
+    throw new ApiError(400, "Group must be 3 member or higher")
+  }
 
   const result = await prisma.$transaction(async (txClient) => {
     const conversation = await txClient.conversation.create({
       data: {
         lastMessage: payload.lastMessage,
 
-        participants:SortedParticipants
+        participants: SortedParticipants
       },
     });
 
     const participantUsersData = payload.conversationsUsers.map((user) => ({
-      userId:user.userId,
+      userId: user.userId,
       conversationId: conversation.id,
     }));
 
@@ -57,17 +63,17 @@ if (isConversationExits) {
       },
       select: {
         id: true,
-        participants:true,
+        participants: true,
         lastMessage: true,
-        isGroup:true,
-        groupName:true,
+        isGroup: true,
+        groupName: true,
 
         conversationsUsers: {
-          include:{
-            user:{
-              select:{
-                name:true,
-                email:true
+          include: {
+            user: {
+              select: {
+                name: true,
+                email: true
               }
             }
           }
@@ -87,51 +93,76 @@ if (isConversationExits) {
 
 
 
-const getMyConversations = async (pagination: TPagination,id:string) => {
+const getMyConversations = async (pagination: TPagination, id: string) => {
   //  calculate pagination
   const page = Number(pagination.page) || 1;
   const limit = Number(pagination.limit) || 10;
   const skip = (page - 1) * limit
-     
 
 
 
 
 
-  const result = await prisma.conversation.findMany({
-    where:{
-      participants:{
-        contains:String(id)
+
+  const myAllconversations = await prisma.conversation.findMany({
+    where: {
+      participants: {
+        contains: String(id)
       }
     },
     select: {
       id: true,
       lastMessage: true,
-      participants:true,
-      isGroup:true,
-      groupName:true,
+      participants: true,
+      isGroup: true,
+      groupName: true,
+      groupPhoto:true,
       isDeleted: true,
+      conversationsUsers: {
+        include: {
+          user: {
+            select: {
+              profilePhoto: true,
+              name:true,
+              id:true
+            }
+          }
+        }
+      },
+
       createdAt: true,
       updatedAt: true,
     },
     skip,
     take: limit,
-    orderBy:{
-      updatedAt:"desc"
+    orderBy: {
+      updatedAt: "desc"
     }
   });
 
-if(result?.length===0){
-  throw new ApiError(404,"Conversation not found")
-}
+  if (myAllconversations?.length === 0) {
+    throw new ApiError(404, "Conversation not found")
+  }
 
 
+  const conversationsWithProfilePhoto = myAllconversations.map((conversation, index) => {
+    if (!conversation.isGroup) {
+      const conversationUsers = conversation.conversationsUsers.filter(user => user.userId !== id)
+     const receiverProfileId = conversationUsers[0].user.profilePhoto;
+     const receiverProfilePhoto = conversationUsers[0].user.profilePhoto;
+     const receiverProfileName= conversationUsers[0].user.name;
+     return {...conversation,receiverProfileId,receiverProfilePhoto,receiverProfileName}
+    }
+    return conversation
+  })
+
+  // console.log(conversationsWithProfilePhoto);
   return {
-    result,
-    meta:{
+    result:conversationsWithProfilePhoto,
+    meta: {
       page,
       limit,
-      total:result?.length || 0
+      total: conversationsWithProfilePhoto?.length || 0
     }
   };
 };
