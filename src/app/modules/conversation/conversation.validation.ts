@@ -1,8 +1,7 @@
 import z from "zod"
 
 const ConversationUsers = z.object({
-    email: z.string({required_error:"conversationsUsers>Email is required"}),
-    name: z.string({required_error:"conversationsUsers>Name is required"}),
+    userId: z.number({required_error:"conversationsUsers[]>userId is required"})
   });
 
 const createConversation = z.object({

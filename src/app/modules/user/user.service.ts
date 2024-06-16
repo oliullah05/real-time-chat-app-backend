@@ -26,9 +26,10 @@ const createUser = async (payload: User) => {
     }
   });
 
-    // jwt 
+    // jwt
     const jwtPayload: JwtPayload = {
       id: result.id,
+      email:result.email,
       role: result.role
   }
 
@@ -47,7 +48,8 @@ const createUser = async (payload: User) => {
       accessToken,
       user:{
           id: result.id,
-          role: result.role
+          role: result.role,
+          email:result.email
       },
       refreshToken
   };

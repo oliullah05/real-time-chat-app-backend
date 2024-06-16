@@ -1,6 +1,5 @@
 export type TParticipantUsers = {
-  email: string;
-  name: string;
+  userId: string;
 }[];
 
 export type TPagination = {

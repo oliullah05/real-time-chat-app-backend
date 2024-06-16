@@ -13,7 +13,6 @@ const auth = (...roles: string[]) => {
             }
 
             const token = req.headers.authorization;
-
             // const token = tokenWithBearer.replace(/^Bearer\s/, '');
             const verifyToken = jwt.verify(token, config.jwt.jwt_access_secret as Secret)
      

@@ -1,7 +1,7 @@
 import { Conversation } from "../../../../prisma/generated/client";
 import ApiError from "../../errors/apiError";
 import prisma from "../../shared/prisma";
-import { TPagination, TParticipantUsers } from "./conversation.type";
+import { TPagination, TParticipantUsers} from "./conversation.type";
 
 const createConversation = async (
   payload: Conversation & {
@@ -18,12 +18,12 @@ const createConversation = async (
     });
 
     const participantUsersData = payload.conversationsUsers.map((user) => ({
-      ...user,
+      userId:Number(user.userId),
       conversationId: conversation.id,
     }));
 
     const participantUsers = await txClient.conversationUsers.createMany({
-      data: participantUsersData,
+      data: participantUsersData
     });
 
     const getConversation = await txClient.conversation.findUniqueOrThrow({
@@ -34,7 +34,17 @@ const createConversation = async (
         id: true,
         lastMessage: true,
         participants:true,
-        conversationsUsers: true,
+        conversationsUsers: {
+          include:{
+            user:{
+              select:{
+                name:true,
+                email:true
+              }
+            }
+          }
+        },
+
         isDeleted: true,
         createdAt: true,
         updatedAt: true,
@@ -47,7 +57,9 @@ const createConversation = async (
   return result;
 };
 
-const getMyConversations = async (pagination: TPagination,email:string) => {
+
+
+const getMyConversations = async (pagination: TPagination,id:string) => {
   //  calculate pagination
   const page = Number(pagination.page) || 1;
   const limit = Number(pagination.limit) || 10;
@@ -61,7 +73,7 @@ const getMyConversations = async (pagination: TPagination,email:string) => {
   const result = await prisma.conversation.findMany({
     where:{
       participants:{
-        contains:email
+        contains:String(id)
       }
     },
     select: {

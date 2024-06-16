@@ -22,7 +22,8 @@ const login = async (payload: { email: string, password: string }) => {
 
     // jwt 
     const jwtPayload: JwtPayload = {
-        id: userData.id,
+        id:userData.id,
+        email: userData.email,
         role: userData.role
     }
 
@@ -41,7 +42,8 @@ const login = async (payload: { email: string, password: string }) => {
         accessToken,
         user:{
             id: userData.id,
-            role: userData.role
+            role: userData.role,
+            email:userData.email
         },
         refreshToken
     };

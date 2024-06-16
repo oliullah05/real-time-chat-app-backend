@@ -15,7 +15,6 @@ const globalErrorHandler = (
 
   if (err.name === "PrismaClientKnownRequestError" && err.code === "P2002") {
     statusCode = 400;
-
     const fieldName: string[] = err.meta.target;
     const firstLatterUppercase =
       fieldName[0].charAt(0).toUpperCase() + fieldName[0].slice(1);

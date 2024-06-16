@@ -14,12 +14,10 @@ const createConversation = catchAsync(async(req,res)=>{
 })
 
 const getMyConversations = catchAsync(async(req,res)=>{
-    console.log({
-        cookie:req.cookies
-    });
     const pagination = pick(req.query,["page","limit"]) as {page:number,limit:number};
-    const email = req.query?.email as string;
-    const result = await ConversationServices.getMyConversations(pagination,email);
+    const id = req.user.id as string;
+    
+    const result = await ConversationServices.getMyConversations(pagination,id);
      sendResponse(res,{
         success:true,
         message:"Conversations retrieved successfully",
