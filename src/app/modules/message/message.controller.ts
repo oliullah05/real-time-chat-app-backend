@@ -4,7 +4,8 @@ import sendResponse from "../../shared/sendResponse";
 import { MessageServices } from "./message.service";
 
 const createMessage = catchAsync(async(req,res)=>{
-    const result = await MessageServices.createMessage(req.body);
+   const userId = req.user.id;
+    const result = await MessageServices.createMessage(req.body,userId);
      sendResponse(res,{
         success:true,
         message:"Message created successfully",
@@ -13,24 +14,25 @@ const createMessage = catchAsync(async(req,res)=>{
      })
 })
 
-// const getMessagesByConversationId = catchAsync(async(req,res)=>{
-//    const pagination = pick(req.query,["page","limit"]) as {page:number,limit:number};
-//    const {conversationId} = req.params
-//    const result = await MessageServices.getMessagesByConversationId(pagination,Number(conversationId));
-//     sendResponse(res,{
-//        success:true,
-//        message:"Messages retrieved successfully",
-//        statusCode:200,
-//        data:result.result,
-//        meta:{
-//            page:result.meta.page,
-//            limit:result.meta.limit,
-//            total:result.meta.total
-//        }
-//     })
-// })
+const getMessagesByConversationId = catchAsync(async(req,res)=>{
+   const pagination = pick(req.query,["page","limit"]) as {page:number,limit:number};
+   const {conversationId} = req.params;
+   const userId = req.user.id
+   const result = await MessageServices.getMessagesByConversationId(pagination,conversationId,userId);
+    sendResponse(res,{
+       success:true,
+       message:"Messages retrieved successfully",
+       statusCode:200,
+       data:result.result,
+       meta:{
+           page:result.meta.page,
+           limit:result.meta.limit,
+           total:result.meta.total
+       }
+    })
+})
 
 export const MessageControllers = {
  createMessage,
-//  getMessagesByConversationId
+ getMessagesByConversationId
 }
