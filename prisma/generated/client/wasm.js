@@ -156,7 +156,7 @@ exports.Prisma.MessageScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   conversationId: 'conversationId',
-  sender: 'sender'
+  senderId: 'senderId'
 };
 
 exports.Prisma.SortOrder = {

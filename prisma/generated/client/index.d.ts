@@ -4146,7 +4146,7 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     conversationId: string | null
-    sender: string | null
+    senderId: string | null
   }
 
   export type MessageMaxAggregateOutputType = {
@@ -4157,7 +4157,7 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     conversationId: string | null
-    sender: string | null
+    senderId: string | null
   }
 
   export type MessageCountAggregateOutputType = {
@@ -4168,7 +4168,7 @@ export namespace Prisma {
     createdAt: number
     updatedAt: number
     conversationId: number
-    sender: number
+    senderId: number
     _all: number
   }
 
@@ -4181,7 +4181,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     conversationId?: true
-    sender?: true
+    senderId?: true
   }
 
   export type MessageMaxAggregateInputType = {
@@ -4192,7 +4192,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     conversationId?: true
-    sender?: true
+    senderId?: true
   }
 
   export type MessageCountAggregateInputType = {
@@ -4203,7 +4203,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     conversationId?: true
-    sender?: true
+    senderId?: true
     _all?: true
   }
 
@@ -4282,12 +4282,12 @@ export namespace Prisma {
   export type MessageGroupByOutputType = {
     id: string
     message: string
-    type: string | null
+    type: string
     isDeleted: boolean
     createdAt: Date
     updatedAt: Date
     conversationId: string
-    sender: string
+    senderId: string
     _count: MessageCountAggregateOutputType | null
     _min: MessageMinAggregateOutputType | null
     _max: MessageMaxAggregateOutputType | null
@@ -4315,7 +4315,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     conversationId?: boolean
-    sender?: boolean
+    senderId?: boolean
     conversation?: boolean | ConversationDefaultArgs<ExtArgs>
     senderInfo?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["message"]>
@@ -4328,7 +4328,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     conversationId?: boolean
-    sender?: boolean
+    senderId?: boolean
   }
 
   export type MessageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4346,12 +4346,12 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       message: string
-      type: string | null
+      type: string
       isDeleted: boolean
       createdAt: Date
       updatedAt: Date
       conversationId: string
-      sender: string
+      senderId: string
     }, ExtArgs["result"]["message"]>
     composites: {}
   }
@@ -4756,7 +4756,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Message", 'DateTime'>
     readonly updatedAt: FieldRef<"Message", 'DateTime'>
     readonly conversationId: FieldRef<"Message", 'String'>
-    readonly sender: FieldRef<"Message", 'String'>
+    readonly senderId: FieldRef<"Message", 'String'>
   }
     
 
@@ -5144,7 +5144,7 @@ export namespace Prisma {
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     conversationId: 'conversationId',
-    sender: 'sender'
+    senderId: 'senderId'
   };
 
   export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
@@ -5451,12 +5451,12 @@ export namespace Prisma {
     NOT?: MessageWhereInput | MessageWhereInput[]
     id?: StringFilter<"Message"> | string
     message?: StringFilter<"Message"> | string
-    type?: StringNullableFilter<"Message"> | string | null
+    type?: StringFilter<"Message"> | string
     isDeleted?: BoolFilter<"Message"> | boolean
     createdAt?: DateTimeFilter<"Message"> | Date | string
     updatedAt?: DateTimeFilter<"Message"> | Date | string
     conversationId?: StringFilter<"Message"> | string
-    sender?: StringFilter<"Message"> | string
+    senderId?: StringFilter<"Message"> | string
     conversation?: XOR<ConversationRelationFilter, ConversationWhereInput>
     senderInfo?: XOR<UserRelationFilter, UserWhereInput>
   }
@@ -5464,12 +5464,12 @@ export namespace Prisma {
   export type MessageOrderByWithRelationInput = {
     id?: SortOrder
     message?: SortOrder
-    type?: SortOrderInput | SortOrder
+    type?: SortOrder
     isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     conversationId?: SortOrder
-    sender?: SortOrder
+    senderId?: SortOrder
     conversation?: ConversationOrderByWithRelationInput
     senderInfo?: UserOrderByWithRelationInput
   }
@@ -5480,12 +5480,12 @@ export namespace Prisma {
     OR?: MessageWhereInput[]
     NOT?: MessageWhereInput | MessageWhereInput[]
     message?: StringFilter<"Message"> | string
-    type?: StringNullableFilter<"Message"> | string | null
+    type?: StringFilter<"Message"> | string
     isDeleted?: BoolFilter<"Message"> | boolean
     createdAt?: DateTimeFilter<"Message"> | Date | string
     updatedAt?: DateTimeFilter<"Message"> | Date | string
     conversationId?: StringFilter<"Message"> | string
-    sender?: StringFilter<"Message"> | string
+    senderId?: StringFilter<"Message"> | string
     conversation?: XOR<ConversationRelationFilter, ConversationWhereInput>
     senderInfo?: XOR<UserRelationFilter, UserWhereInput>
   }, "id">
@@ -5493,12 +5493,12 @@ export namespace Prisma {
   export type MessageOrderByWithAggregationInput = {
     id?: SortOrder
     message?: SortOrder
-    type?: SortOrderInput | SortOrder
+    type?: SortOrder
     isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     conversationId?: SortOrder
-    sender?: SortOrder
+    senderId?: SortOrder
     _count?: MessageCountOrderByAggregateInput
     _max?: MessageMaxOrderByAggregateInput
     _min?: MessageMinOrderByAggregateInput
@@ -5510,12 +5510,12 @@ export namespace Prisma {
     NOT?: MessageScalarWhereWithAggregatesInput | MessageScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Message"> | string
     message?: StringWithAggregatesFilter<"Message"> | string
-    type?: StringNullableWithAggregatesFilter<"Message"> | string | null
+    type?: StringWithAggregatesFilter<"Message"> | string
     isDeleted?: BoolWithAggregatesFilter<"Message"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Message"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Message"> | Date | string
     conversationId?: StringWithAggregatesFilter<"Message"> | string
-    sender?: StringWithAggregatesFilter<"Message"> | string
+    senderId?: StringWithAggregatesFilter<"Message"> | string
   }
 
   export type UserCreateInput = {
@@ -5739,7 +5739,7 @@ export namespace Prisma {
   export type MessageCreateInput = {
     id?: string
     message: string
-    type?: string | null
+    type?: string
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5750,18 +5750,18 @@ export namespace Prisma {
   export type MessageUncheckedCreateInput = {
     id?: string
     message: string
-    type?: string | null
+    type?: string
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     conversationId: string
-    sender: string
+    senderId: string
   }
 
   export type MessageUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
-    type?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: StringFieldUpdateOperationsInput | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5772,29 +5772,29 @@ export namespace Prisma {
   export type MessageUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
-    type?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: StringFieldUpdateOperationsInput | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     conversationId?: StringFieldUpdateOperationsInput | string
-    sender?: StringFieldUpdateOperationsInput | string
+    senderId?: StringFieldUpdateOperationsInput | string
   }
 
   export type MessageCreateManyInput = {
     id?: string
     message: string
-    type?: string | null
+    type?: string
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     conversationId: string
-    sender: string
+    senderId: string
   }
 
   export type MessageUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
-    type?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: StringFieldUpdateOperationsInput | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5803,12 +5803,12 @@ export namespace Prisma {
   export type MessageUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
-    type?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: StringFieldUpdateOperationsInput | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     conversationId?: StringFieldUpdateOperationsInput | string
-    sender?: StringFieldUpdateOperationsInput | string
+    senderId?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -6067,7 +6067,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     conversationId?: SortOrder
-    sender?: SortOrder
+    senderId?: SortOrder
   }
 
   export type MessageMaxOrderByAggregateInput = {
@@ -6078,7 +6078,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     conversationId?: SortOrder
-    sender?: SortOrder
+    senderId?: SortOrder
   }
 
   export type MessageMinOrderByAggregateInput = {
@@ -6089,7 +6089,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     conversationId?: SortOrder
-    sender?: SortOrder
+    senderId?: SortOrder
   }
 
   export type MessageCreateNestedManyWithoutSenderInfoInput = {
@@ -6478,7 +6478,7 @@ export namespace Prisma {
   export type MessageCreateWithoutSenderInfoInput = {
     id?: string
     message: string
-    type?: string | null
+    type?: string
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -6488,7 +6488,7 @@ export namespace Prisma {
   export type MessageUncheckedCreateWithoutSenderInfoInput = {
     id?: string
     message: string
-    type?: string | null
+    type?: string
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -6545,12 +6545,12 @@ export namespace Prisma {
     NOT?: MessageScalarWhereInput | MessageScalarWhereInput[]
     id?: StringFilter<"Message"> | string
     message?: StringFilter<"Message"> | string
-    type?: StringNullableFilter<"Message"> | string | null
+    type?: StringFilter<"Message"> | string
     isDeleted?: BoolFilter<"Message"> | boolean
     createdAt?: DateTimeFilter<"Message"> | Date | string
     updatedAt?: DateTimeFilter<"Message"> | Date | string
     conversationId?: StringFilter<"Message"> | string
-    sender?: StringFilter<"Message"> | string
+    senderId?: StringFilter<"Message"> | string
   }
 
   export type ConversationUsersUpsertWithWhereUniqueWithoutUserInput = {
@@ -6598,7 +6598,7 @@ export namespace Prisma {
   export type MessageCreateWithoutConversationInput = {
     id?: string
     message: string
-    type?: string | null
+    type?: string
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -6608,11 +6608,11 @@ export namespace Prisma {
   export type MessageUncheckedCreateWithoutConversationInput = {
     id?: string
     message: string
-    type?: string | null
+    type?: string
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    sender: string
+    senderId: string
   }
 
   export type MessageCreateOrConnectWithoutConversationInput = {
@@ -6932,7 +6932,7 @@ export namespace Prisma {
   export type MessageCreateManySenderInfoInput = {
     id?: string
     message: string
-    type?: string | null
+    type?: string
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -6946,7 +6946,7 @@ export namespace Prisma {
   export type MessageUpdateWithoutSenderInfoInput = {
     id?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
-    type?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: StringFieldUpdateOperationsInput | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6956,7 +6956,7 @@ export namespace Prisma {
   export type MessageUncheckedUpdateWithoutSenderInfoInput = {
     id?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
-    type?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: StringFieldUpdateOperationsInput | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6966,7 +6966,7 @@ export namespace Prisma {
   export type MessageUncheckedUpdateManyWithoutSenderInfoInput = {
     id?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
-    type?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: StringFieldUpdateOperationsInput | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6992,11 +6992,11 @@ export namespace Prisma {
   export type MessageCreateManyConversationInput = {
     id?: string
     message: string
-    type?: string | null
+    type?: string
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    sender: string
+    senderId: string
   }
 
   export type ConversationUsersUpdateWithoutConversationInput = {
@@ -7014,7 +7014,7 @@ export namespace Prisma {
   export type MessageUpdateWithoutConversationInput = {
     id?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
-    type?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: StringFieldUpdateOperationsInput | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7024,21 +7024,21 @@ export namespace Prisma {
   export type MessageUncheckedUpdateWithoutConversationInput = {
     id?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
-    type?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: StringFieldUpdateOperationsInput | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    sender?: StringFieldUpdateOperationsInput | string
+    senderId?: StringFieldUpdateOperationsInput | string
   }
 
   export type MessageUncheckedUpdateManyWithoutConversationInput = {
     id?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
-    type?: NullableStringFieldUpdateOperationsInput | string | null
+    type?: StringFieldUpdateOperationsInput | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    sender?: StringFieldUpdateOperationsInput | string
+    senderId?: StringFieldUpdateOperationsInput | string
   }
 
 

@@ -15,7 +15,7 @@ datasource db {
 }
 
 model User {
-  id           Int      @id @default(autoincrement())
+  id           String   @id @default(uuid())
   email        String   @unique
   name         String
   profilePhoto String?
@@ -35,48 +35,48 @@ enum UserRole {
   admin
   user
 }
- // Sort participants
-  // const sortedParticipants = participants.sort((a, b) => a - b);
-  // const participantsUniqueId = sortedParticipants.join('-');
+
 model Conversation {
-  id                 Int                 @id @default(autoincrement())
-  participants  String?
+  id                 String              @id @default(uuid())
+  participants       String
   lastMessage        String
   isGroup            Boolean             @default(false)
-  groupName          String?
+  groupName          String?             
+  groupPhoto        String?
   isDeleted          Boolean             @default(false)
   createdAt          DateTime            @default(now())
   updatedAt          DateTime            @updatedAt
-  conversationsUsers ConversationUsers[]   
+  conversationsUsers ConversationUsers[]
   Message            Message[]
 
   @@map("conversations")
 }
 
 model ConversationUsers {
-  userId         Int
+  userId         String
   user           User         @relation(fields: [userId], references: [id])
-  conversationId Int
+  conversationId String
   conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
 
   @@unique([userId, conversationId])
   @@map("conversationUsers")
 }
 
-
 model Message {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(uuid())
   message   String
-  type      String?  @default("text")
+  type      String  @default("text")       //atar type pore define hobe
   isDeleted Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  conversationId Int
+  conversationId String
   conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
 
-  sender     Int
-  senderInfo User @relation(fields: [sender], references: [id], name: "sentBy")
+  senderId     String
+  senderInfo User @relation(fields: [senderId], references: [id], name: "sentBy")
 
   @@map("messages")
 }
+
+
