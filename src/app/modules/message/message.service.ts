@@ -9,7 +9,8 @@ const createMessage = async (payload: Message,userId:string) => {
   payload.senderId= userId
   const isSender = await prisma.user.findUnique({
     where: {
-      id: userId
+      id: userId,
+      isDeleted:false
     }
   })
   if (!isSender) {
@@ -20,7 +21,8 @@ const createMessage = async (payload: Message,userId:string) => {
 
   const isConversation = await prisma.conversation.findUnique({
     where: {
-      id: payload.conversationId
+      id: payload.conversationId,
+      isDeleted:false
     }
   })
 
@@ -46,7 +48,8 @@ const getMessagesByConversationId = async(pagination: TPagination,conversationId
 
 await prisma.user.findUniqueOrThrow({
   where:{
-    id:userId
+    id:userId,
+    isDeleted:false
   }
 })
 
@@ -54,7 +57,8 @@ await prisma.user.findUniqueOrThrow({
   // check this coversation his or others
 const isConversationValid = await prisma.conversation.findUniqueOrThrow({
   where:{
-    id:conversationId
+    id:conversationId,
+    isDeleted:false
   }
 })
 
@@ -75,7 +79,7 @@ if(!isConversationValid.participants.includes(userId)){
         }
 
     })
-
+    // 9291d8b2-8ad7-4b7c-8647-1393d5a70dca/b89bd333-e286-47db-9034-ffd35338a9ea
     return {
         result,
         meta:{
