@@ -17,5 +17,8 @@ ConversationControllers.getMyConversations);
 router.get("/conversationById/:id", auth("user","admin"),
 ConversationControllers.getConversationById);
 
+router.put("/conversationById/:id", auth("user","admin"),validateRequest(ConversationValidations.updateConversation),
+ConversationControllers.updateConversationById);
+
 
 export const ConversationRoutes = router;

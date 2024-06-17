@@ -209,7 +209,22 @@ const getConversationById = async (conversationId: string, userId: string) => {
 
 
 
+const updateConversationById = async(id:string,payload:Partial<Conversation>)=>{
+await prisma.conversation.findUniqueOrThrow({
+  where:{
+    id
+  }
+})
 
+const result = await prisma.conversation.update({
+  where:{
+    id
+  },
+  data:payload
+
+})
+return result
+}
 
 
 
@@ -217,5 +232,6 @@ const getConversationById = async (conversationId: string, userId: string) => {
 export const ConversationServices = {
   createConversation,
   getMyConversations,
-  getConversationById
+  getConversationById,
+  updateConversationById
 };

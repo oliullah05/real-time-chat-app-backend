@@ -1,3 +1,4 @@
+import { Conversation } from "../../../../prisma/generated/client";
 import catchAsync from "../../shared/catchAsync";
 import pick from "../../shared/pick";
 import sendResponse from "../../shared/sendResponse";
@@ -48,9 +49,26 @@ const getConversationById = catchAsync(async (req, res) => {
 })
 
 
+const updateConversationById = catchAsync(async (req, res) => {
+
+    const id = req.params.id as string;
+    const updatedData = pick(req.body,["lastMessage","groupPhoto","groupName","isGroup","participants"])
+    const result = await ConversationServices.updateConversationById(id, updatedData);
+    sendResponse(res, {
+        success: true,
+        message: "Conversation Update successfully",
+        statusCode: 200,
+        data: result
+       
+    })
+})
+
+
 
 export const ConversationControllers = {
     createConversation,
     getMyConversations,
-    getConversationById
+    getConversationById,
+    updateConversationById,
+    
 }
