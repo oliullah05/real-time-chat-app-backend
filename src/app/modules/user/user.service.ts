@@ -5,6 +5,7 @@ import config from "../../config";
 import { User } from "../../../../prisma/generated/client";
 import jwt, { JwtPayload, Secret } from "jsonwebtoken";
 import { TPagination } from "../conversation/conversation.type";
+import { query } from "express";
 const createUser = async (payload: User) => {
 
   const { password, ...data } = payload;
@@ -60,8 +61,8 @@ const createUser = async (payload: User) => {
 
 const getUsersWithoutMeForMessage = async (pagination: TPagination, userId: string) => {
   await prisma.user.findUniqueOrThrow({
-    where:{
-      id:userId
+    where: {
+      id: userId
     }
   })
   //  calculate pagination
@@ -74,8 +75,8 @@ const getUsersWithoutMeForMessage = async (pagination: TPagination, userId: stri
       NOT: {
         id: userId
       },
-      AND:{
-        isDeleted:false
+      AND: {
+        isDeleted: false
       }
     },
     skip,
@@ -83,30 +84,92 @@ const getUsersWithoutMeForMessage = async (pagination: TPagination, userId: stri
     orderBy: {
       updatedAt: "desc"
     },
-    select:{
-      id:true,
-      name:true,
-      profilePhoto:true,
-      createdAt:true
+    select: {
+      id: true,
+      name: true,
+      profilePhoto: true,
+      createdAt: true
     }
   })
 
   return {
     result,
-    meta:{
+    meta: {
       page,
       limit,
-      total:result?.length || 0
+      total: result?.length || 0
     }
   };
 
 
 }
 
+const searchUsersWithoutMeForMessage = async (pagination: TPagination,searchTerm: string, userId: string) => {
+  await prisma.user.findUniqueOrThrow({
+    where: {
+      id: userId
+    }
+  })
+  //  calculate pagination
+  const page = Number(pagination.page) || 1;
+  const limit = Number(pagination.limit) || 10;
+  const skip = (page - 1) * limit
+
+
+
+  const result = await prisma.user.findMany({
+    where: {
+      OR: [
+        {
+          name: {
+            contains: searchTerm,
+            mode: "insensitive"
+          }
+        },
+        {
+          email: {
+            contains: searchTerm,
+            mode: "insensitive"
+          }
+        },
+      ],
+      NOT: [
+        {
+          id: userId
+        }
+      ],
+    },
+    skip,
+    take: limit,
+    orderBy: {
+      updatedAt: "desc"
+    },
+    select: {
+      id: true,
+      name: true,
+      profilePhoto: true,
+      createdAt: true
+    }
+  })
+
+  return {
+    result,
+    meta: {
+      page,
+      limit,
+      total: result?.length || 0
+    }
+  };
+}
+
+
+
+
 
 
 
 export const UserServices = {
   createUser,
-  getUsersWithoutMeForMessage
+  getUsersWithoutMeForMessage,
+  searchUsersWithoutMeForMessage
 };

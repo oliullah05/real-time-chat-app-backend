@@ -49,8 +49,27 @@ const getUsersWithoutMeForMessage = catchAsync(async(req,res)=>{
      })
  })
 
+const searchUsersWithoutMeForMessage = catchAsync(async(req,res)=>{
+    const pagination = pick(req.query,["page","limit"]) as {page:number,limit:number};
+    const searchTerm = req.params.searchTerm;
+    const userId = req.user.id
+    const result = await UserServices.searchUsersWithoutMeForMessage(pagination,searchTerm,userId);
+     sendResponse(res,{
+        success:true,
+        message:"Users retrieved successfully",
+        statusCode:200,
+        data:result.result,
+        meta:{
+            page:result.meta.page,
+            limit:result.meta.limit,
+            total:result.meta.total
+        }
+     })
+ })
+
 
 export const UserControllers = {
     createUser,
-    getUsersWithoutMeForMessage
+    getUsersWithoutMeForMessage,
+    searchUsersWithoutMeForMessage
 }

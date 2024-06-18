@@ -13,6 +13,9 @@ UserControllers.createUser)
 router.get("/getUsersWithoutMeForMessage",auth("user","admin"),
 UserControllers.getUsersWithoutMeForMessage)
 
+router.get("/searchUsersWithoutMeForMessage/:searchTerm",auth("user","admin"),
+UserControllers.searchUsersWithoutMeForMessage)
+
 
 
 export const UserRoutes = router;
