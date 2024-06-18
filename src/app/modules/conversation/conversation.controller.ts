@@ -49,6 +49,21 @@ const getConversationById = catchAsync(async (req, res) => {
 })
 
 
+const getConversationByParticipants = catchAsync(async (req, res) => {
+
+    const id = req.user.id as string;
+    const participants = req.query.participants as string
+    const result = await ConversationServices.getConversationByParticipants(participants, id);
+    sendResponse(res, {
+        success: true,
+        message: "Conversation retrieved successfully",
+        statusCode: 200,
+        data: result
+       
+    })
+})
+
+
 const updateConversationById = catchAsync(async (req, res) => {
 
     const id = req.params.id as string;
@@ -70,5 +85,6 @@ export const ConversationControllers = {
     getMyConversations,
     getConversationById,
     updateConversationById,
+    getConversationByParticipants
     
 }

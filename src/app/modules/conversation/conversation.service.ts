@@ -32,7 +32,7 @@ const createConversation = async (
   }
 
 
-
+  
   // check group 2 or higher here...........................................................................................................
 
   if (payload.isGroup && payload.conversationsUsers.length < 3) {
@@ -207,6 +207,52 @@ const getConversationById = async (conversationId: string, userId: string) => {
   return conversation
 }
 
+const getConversationByParticipants = async (participants: string, userId: string) => {
+
+  // sort participants
+
+  const participantsArray = participants.split('/');
+  const sortedParticipantsArray = participantsArray.sort();
+  const SortedParticipants = sortedParticipantsArray.join('/');
+
+
+  const conversation = await prisma.conversation.findFirstOrThrow({
+    where: {
+      participants:SortedParticipants
+    },
+    select: {
+      id: true,
+      lastMessage: true,
+      participants: true,
+      isGroup: true,
+      groupName: true,
+      groupPhoto: true,
+      isDeleted: true,
+      conversationsUsers: {
+        include: {
+          user: {
+            select: {
+              profilePhoto: true,
+              name: true,
+              id: true
+            }
+          }
+        }
+      },
+    }
+  })
+
+  if (!conversation.isGroup) {
+    const conversationUsers = conversation.conversationsUsers.filter(user => user.userId !== userId)
+    const receiverProfileId = conversationUsers[0].user.id;
+    const receiverProfilePhoto = conversationUsers[0].user.profilePhoto;
+    const receiverProfileName = conversationUsers[0].user.name;
+    return { ...conversation, receiverProfileId, receiverProfileName, receiverProfilePhoto }
+  }
+
+  return conversation
+}
+
 
 
 const updateConversationById = async(id:string,payload:Partial<Conversation>)=>{
@@ -233,5 +279,6 @@ export const ConversationServices = {
   createConversation,
   getMyConversations,
   getConversationById,
-  updateConversationById
+  updateConversationById,
+  getConversationByParticipants
 };

@@ -82,7 +82,7 @@ const getUsersWithoutMeForMessage = async (pagination: TPagination, userId: stri
     skip,
     take: limit,
     orderBy: {
-      updatedAt: "desc"
+      createdAt: "desc"
     },
     select: {
       id: true,
@@ -126,12 +126,12 @@ const searchUsersWithoutMeForMessage = async (pagination: TPagination,searchTerm
             mode: "insensitive"
           }
         },
-        {
-          email: {
-            contains: searchTerm,
-            mode: "insensitive"
-          }
-        },
+        // {
+        //   email: {
+        //     contains: searchTerm,
+        //     mode: "insensitive"
+        //   }
+        // },
       ],
       NOT: [
         {
@@ -142,7 +142,7 @@ const searchUsersWithoutMeForMessage = async (pagination: TPagination,searchTerm
     skip,
     take: limit,
     orderBy: {
-      updatedAt: "desc"
+      createdAt: "desc"
     },
     select: {
       id: true,

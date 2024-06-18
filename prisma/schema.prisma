@@ -27,7 +27,7 @@ model User {
 
   sentMessages      Message[]           @relation("sentBy")
   ConversationUsers ConversationUsers[]
-
+@@index([name])
   @@map("users")
 }
 
@@ -41,14 +41,15 @@ model Conversation {
   participants       String
   lastMessage        String
   isGroup            Boolean             @default(false)
-  groupName          String?             
-  groupPhoto        String?
+  groupName          String?
+  groupPhoto         String?
   isDeleted          Boolean             @default(false)
   createdAt          DateTime            @default(now())
   updatedAt          DateTime            @updatedAt
   conversationsUsers ConversationUsers[]
   Message            Message[]
 
+  @@index([participants])
   @@map("conversations")
 }
 
@@ -65,7 +66,7 @@ model ConversationUsers {
 model Message {
   id        String   @id @default(uuid())
   message   String
-  type      String  @default("text")       //atar type pore define hobe
+  type      String   @default("text") //atar type pore define hobe
   isDeleted Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -73,10 +74,8 @@ model Message {
   conversationId String
   conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
 
-  senderId     String
-  senderInfo User @relation(fields: [senderId], references: [id], name: "sentBy")
+  senderId   String
+  senderInfo User   @relation(fields: [senderId], references: [id], name: "sentBy")
 
   @@map("messages")
 }
-
-
