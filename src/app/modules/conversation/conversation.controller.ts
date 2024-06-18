@@ -53,6 +53,7 @@ const getConversationByParticipants = catchAsync(async (req, res) => {
 
     const id = req.user.id as string;
     const participants = req.query.participants as string
+    console.log(participants);
     const result = await ConversationServices.getConversationByParticipants(participants, id);
     sendResponse(res, {
         success: true,
@@ -64,11 +65,11 @@ const getConversationByParticipants = catchAsync(async (req, res) => {
 })
 
 
-const updateConversationById = catchAsync(async (req, res) => {
+const updateConversationByParticipants = catchAsync(async (req, res) => {
 
-    const id = req.params.id as string;
+    const participants = req.query.participants as string;
     const updatedData = pick(req.body,["lastMessage","groupPhoto","groupName","isGroup","participants"])
-    const result = await ConversationServices.updateConversationById(id, updatedData);
+    const result = await ConversationServices.updateConversationByParticipants(participants, updatedData);
     sendResponse(res, {
         success: true,
         message: "Conversation Update successfully",
@@ -84,7 +85,7 @@ export const ConversationControllers = {
     createConversation,
     getMyConversations,
     getConversationById,
-    updateConversationById,
+    updateConversationByParticipants,
     getConversationByParticipants
     
 }

@@ -255,16 +255,23 @@ const getConversationByParticipants = async (participants: string, userId: strin
 
 
 
-const updateConversationById = async(id:string,payload:Partial<Conversation>)=>{
-await prisma.conversation.findUniqueOrThrow({
+const updateConversationByParticipants = async(participants:string,payload:Partial<Conversation>)=>{
+   // sort participants
+
+   const participantsArray = participants.split('/');
+   const sortedParticipantsArray = participantsArray.sort();
+   const SortedParticipants = sortedParticipantsArray.join('/');
+   
+await prisma.conversation.findFirstOrThrow({
   where:{
-    id
+    participants:SortedParticipants
   }
 })
 
 const result = await prisma.conversation.update({
   where:{
-    id
+    participants:SortedParticipants,
+    isDeleted:false
   },
   data:payload
 
@@ -279,6 +286,6 @@ export const ConversationServices = {
   createConversation,
   getMyConversations,
   getConversationById,
-  updateConversationById,
+  updateConversationByParticipants,
   getConversationByParticipants
 };

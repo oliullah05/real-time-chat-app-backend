@@ -20,8 +20,8 @@ ConversationControllers.getConversationById);
 router.get("/conversationByParticipants", auth("user","admin"),
 ConversationControllers.getConversationByParticipants);
 
-router.put("/conversationById/:id", auth("user","admin"),validateRequest(ConversationValidations.updateConversation),
-ConversationControllers.updateConversationById);
+router.put("/updateConversationByParticipants", auth("user","admin"),validateRequest(ConversationValidations.updateConversation),
+ConversationControllers.updateConversationByParticipants);
 
 
 

@@ -38,7 +38,7 @@ enum UserRole {
 
 model Conversation {
   id                 String              @id @default(uuid())
-  participants       String
+  participants       String              @unique
   lastMessage        String
   isGroup            Boolean             @default(false)
   groupName          String?
