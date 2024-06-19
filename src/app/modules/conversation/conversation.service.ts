@@ -4,11 +4,16 @@ import ApiError from "../../errors/apiError";
 import prisma from "../../shared/prisma";
 import { TPagination, TParticipantUsers } from "./conversation.type";
 
-const createConversation = async (
-  payload: Conversation & {
-    conversationsUsers: TParticipantUsers;
-  }
-) => {
+const createConversation = async (payload: {
+  lastMessage: string;
+  participants: string;
+  isGroup?: boolean;
+  conversationsUsers: [{
+    userId: string;
+  }];
+  groupName?: string;
+  groupPhoto?:string
+}) => {
   // sort participants
 
   const participants = payload.participants;
@@ -40,12 +45,18 @@ const createConversation = async (
   }
 
   const result = await prisma.$transaction(async (txClient) => {
-    const conversation = await txClient.conversation.create({
-      data: {
-        lastMessage: payload.lastMessage,
+const modifyPayload:any =  {
+  lastMessage:payload.lastMessage,
+  participants:payload.participants,
+}
+if(payload.isGroup){
+  modifyPayload.groupName  = payload.groupName;
+  modifyPayload.isGroup =payload.isGroup;
+  modifyPayload.groupPhoto =payload.groupPhoto;
+}
 
-        participants: SortedParticipants
-      },
+    const conversation = await txClient.conversation.create({
+      data:modifyPayload
     });
 
     const participantUsersData = payload.conversationsUsers.map((user) => ({

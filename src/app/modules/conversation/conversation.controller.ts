@@ -3,10 +3,12 @@ import catchAsync from "../../shared/catchAsync";
 import pick from "../../shared/pick";
 import sendResponse from "../../shared/sendResponse";
 import { ConversationServices } from "./conversation.service";
+import { TParticipantUsers } from "./conversation.type";
 
 const createConversation = catchAsync(async (req, res) => {
-    const data = pick(req.query, ["lastMessage", "conversationsUsers"])
+   
     const result = await ConversationServices.createConversation(req.body);
+    
     sendResponse(res, {
         success: true,
         message: "Conversation created successfully",
