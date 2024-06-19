@@ -12,7 +12,7 @@ const createConversation = async (payload: {
     userId: string;
   }];
   groupName?: string;
-  groupPhoto?:string
+  groupPhoto?: string
 }) => {
   // sort participants
 
@@ -21,23 +21,6 @@ const createConversation = async (payload: {
   const sortedParticipantsArray = participantsArray.sort();
   const SortedParticipants = sortedParticipantsArray.join('/');
 
-
-  const isConversationExits = await prisma.conversation.findFirst({
-    where: {
-      participants: SortedParticipants,
-      isDeleted: false
-    }
-  })
-
-  if (isConversationExits) {
-    if (isConversationExits.isGroup) {
-      throw new ApiError(400, "This group chat already exists.");
-    }
-    throw new ApiError(400, "This conversation already exists.");
-  }
-
-
-  
   // check group 2 or higher here...........................................................................................................
 
   if (payload.isGroup && payload.conversationsUsers.length < 3) {
@@ -45,18 +28,22 @@ const createConversation = async (payload: {
   }
 
   const result = await prisma.$transaction(async (txClient) => {
-const modifyPayload:any =  {
-  lastMessage:payload.lastMessage,
-  participants:payload.participants,
-}
-if(payload.isGroup){
-  modifyPayload.groupName  = payload.groupName;
-  modifyPayload.isGroup =payload.isGroup;
-  modifyPayload.groupPhoto =payload.groupPhoto;
-}
+    const modifyPayload: any = {
+      lastMessage: payload.lastMessage,
+      participants: SortedParticipants,
+    }
+    if (payload.isGroup) {
+      modifyPayload.isGroup = payload.isGroup;
+    }
+    if(payload.groupName){
+      modifyPayload.groupName = payload.groupName;
+    }
+    if(payload.groupPhoto){
+      modifyPayload.groupPhoto = payload.groupPhoto;
 
+    }
     const conversation = await txClient.conversation.create({
-      data:modifyPayload
+      data: modifyPayload
     });
 
     const participantUsersData = payload.conversationsUsers.map((user) => ({
@@ -226,10 +213,10 @@ const getConversationByParticipants = async (participants: string, userId: strin
   const sortedParticipantsArray = participantsArray.sort();
   const SortedParticipants = sortedParticipantsArray.join('/');
 
-
-  const conversation = await prisma.conversation.findFirstOrThrow({
+console.log(SortedParticipants);
+  const conversation = await prisma.conversation.findUniqueOrThrow({
     where: {
-      participants:SortedParticipants
+      participants: SortedParticipants
     },
     select: {
       id: true,
@@ -266,29 +253,32 @@ const getConversationByParticipants = async (participants: string, userId: strin
 
 
 
-const updateConversationByParticipants = async(participants:string,payload:Partial<Conversation>)=>{
-   // sort participants
+const updateConversationByParticipants = async (participants: string, payload: Partial<Conversation>) => {
+  // sort participants
 
-   const participantsArray = participants.split('/');
-   const sortedParticipantsArray = participantsArray.sort();
-   const SortedParticipants = sortedParticipantsArray.join('/');
-   
-await prisma.conversation.findFirstOrThrow({
-  where:{
-    participants:SortedParticipants
-  }
-})
+  const participantsArray = participants.split('/');
+  const sortedParticipantsArray = participantsArray.sort();
+  const SortedParticipants = sortedParticipantsArray.join('/');
 
-const result = await prisma.conversation.update({
-  where:{
-    participants:SortedParticipants,
-    isDeleted:false
-  },
-  data:payload
+  await prisma.conversation.findFirstOrThrow({
+    where: {
+      participants: SortedParticipants
+    }
+  })
 
-})
-return result
+  const result = await prisma.conversation.update({
+    where: {
+      participants: SortedParticipants,
+      isDeleted: false
+    },
+    data: payload
+
+  })
+  return result
 }
+
+
+
 
 
 
