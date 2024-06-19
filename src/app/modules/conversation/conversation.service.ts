@@ -31,16 +31,32 @@ const createConversation = async (payload: {
     }
   })
 
-  // check group 2 or higher here...........................................................................................................
+  // all necessary validation added here........................................................................
+
+  function checkParticipantsAndUsersMatch(participants: string, conversationsUsers: {
+    userId: string;
+  }[]) {
+   const participantIDs = participants.split('/');
+    const userIDs = conversationsUsers.map(user => user.userId);
+    const isMatch = participantIDs.length === userIDs.length &&
+      participantIDs.every(id => userIDs.includes(id));
+    return isMatch ? true : false;
+  }
+
+  if (!checkParticipantsAndUsersMatch(payload.participants, payload.conversationsUsers)) {
+    throw new ApiError(400, "Participants and conversations users did not match.")
+  }
+
+  if (payload.isGroup === false && participantsArray.length > 2 || payload.isGroup === false && payload.conversationsUsers.length > 2) {
+    throw new ApiError(400, "Group can't be false when participants more then 2")
+  }
+
+  if (participantsArray.length !== payload.conversationsUsers.length) {
+    throw new ApiError(400, "participants and conversationsUsers not match")
+  }
 
 
-
- if(participantsArray.length!==payload.conversationsUsers.length){
-  throw new ApiError(400, "participants and conversationsUsers not match")
- }
-
-
-  if (payload.isGroup && payload.conversationsUsers.length < 3 || participantsArray.length<3) {
+  if (payload.isGroup && payload.conversationsUsers.length < 3 || payload.isGroup && participantsArray.length < 3) {
     throw new ApiError(400, "Group must be 3 member or higher")
   }
 
@@ -80,7 +96,7 @@ const createConversation = async (payload: {
     if (payload.lastMessageType) {
       updateModifyPayload.lastMessageType = payload.lastMessageType;
     }
- 
+
     // create or update conversation
     const conversationCreateOrUpdate = await txClient.conversation.upsert({
       where: {
@@ -100,16 +116,16 @@ const createConversation = async (payload: {
     })
 
 
-   if(!isConversationExits){
-    const participantUsersData = payload.conversationsUsers.map((user) => ({
-      userId: user.userId,
-      conversationId: conversationCreateOrUpdate.id,
-    }));
+    if (!isConversationExits) {
+      const participantUsersData = payload.conversationsUsers.map((user) => ({
+        userId: user.userId,
+        conversationId: conversationCreateOrUpdate.id,
+      }));
 
-    const participantUsers = await txClient.conversationUsers.createMany({
-      data: participantUsersData
-    });
-   }
+      const participantUsers = await txClient.conversationUsers.createMany({
+        data: participantUsersData
+      });
+    }
 
 
     const getConversation = await txClient.conversation.findUniqueOrThrow({
@@ -122,7 +138,7 @@ const createConversation = async (payload: {
         lastMessage: true,
         isGroup: true,
         groupName: true,
-        groupPhoto:true,
+        groupPhoto: true,
 
         conversationsUsers: {
           include: {
@@ -144,10 +160,10 @@ const createConversation = async (payload: {
     return getConversation;
   });
 
-  return{
+  return {
     result,
-    message:`${isConversationExits?"Conversation Update successfully":"Conversation created successfully"}`,
-    statusCode:isConversationExits?200:201,
+    message: `${isConversationExits ? "Conversation Update successfully" : "Conversation created successfully"}`,
+    statusCode: isConversationExits ? 200 : 201,
   };
 };
 
