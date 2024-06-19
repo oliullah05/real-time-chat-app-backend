@@ -41,7 +41,7 @@ model Conversation {
   id                 String              @id @default(uuid())
   participants       String              @unique
   lastMessage        String
-
+  lastMessageType    String             @default("text")
   isGroup            Boolean             @default(false)
   groupName          String?
   groupPhoto         String?

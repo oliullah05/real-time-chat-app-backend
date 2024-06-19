@@ -6,14 +6,14 @@ import { ConversationServices } from "./conversation.service";
 import { TParticipantUsers } from "./conversation.type";
 
 const createConversation = catchAsync(async (req, res) => {
-   
-    const result = await ConversationServices.createConversation(req.body);
+   const userId = req.user.id;
+    const result = await ConversationServices.createConversation(req.body,userId);
     
     sendResponse(res, {
         success: true,
-        message: "Conversation created successfully",
-        statusCode: 201,
-        data: result
+        message: result.message,
+        statusCode: result.statusCode,
+        data: result.result
     })
 })
 
@@ -55,7 +55,6 @@ const getConversationByParticipants = catchAsync(async (req, res) => {
 
     const id = req.user.id as string;
     const participants = req.query.participants as string
-    console.log(participants);
     const result = await ConversationServices.getConversationByParticipants(participants, id);
     sendResponse(res, {
         success: true,

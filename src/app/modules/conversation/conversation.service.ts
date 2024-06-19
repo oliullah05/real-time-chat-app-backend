@@ -8,56 +8,113 @@ const createConversation = async (payload: {
   lastMessage: string;
   participants: string;
   isGroup?: boolean;
+  lastMessageType?: string,
   conversationsUsers: [{
     userId: string;
   }];
   groupName?: string;
   groupPhoto?: string
-}) => {
+}, userId: string) => {
   // sort participants
 
   const participants = payload.participants;
   const participantsArray = participants.split('/');
   const sortedParticipantsArray = participantsArray.sort();
-  const SortedParticipants = sortedParticipantsArray.join('/');
+  const sortedParticipants = sortedParticipantsArray.join('/');
+
+
+  // check is conversation exits 
+
+  const isConversationExits = await prisma.conversation.findUnique({
+    where: {
+      participants: sortedParticipants
+    }
+  })
 
   // check group 2 or higher here...........................................................................................................
 
-  if (payload.isGroup && payload.conversationsUsers.length < 3) {
+
+
+ if(participantsArray.length!==payload.conversationsUsers.length){
+  throw new ApiError(400, "participants and conversationsUsers not match")
+ }
+
+
+  if (payload.isGroup && payload.conversationsUsers.length < 3 || participantsArray.length<3) {
     throw new ApiError(400, "Group must be 3 member or higher")
   }
 
   const result = await prisma.$transaction(async (txClient) => {
-    const modifyPayload: any = {
+    // payload for create 
+    const createModifyPayload: any = {
       lastMessage: payload.lastMessage,
-      participants: SortedParticipants,
+      participants: sortedParticipants,
     }
     if (payload.isGroup) {
-      modifyPayload.isGroup = payload.isGroup;
+      createModifyPayload.isGroup = payload.isGroup;
     }
     if (payload.groupName) {
-      modifyPayload.groupName = payload.groupName;
+      createModifyPayload.groupName = payload.groupName;
     }
     if (payload.groupPhoto) {
-      modifyPayload.groupPhoto = payload.groupPhoto;
-
+      createModifyPayload.groupPhoto = payload.groupPhoto;
     }
-    const conversation = await txClient.conversation.create({
-      data: modifyPayload
-    });
 
+    if (payload.lastMessageType) {
+      createModifyPayload.lastMessageType = payload.lastMessageType;
+    }
+
+
+    // payload for update 
+    const updateModifyPayload: any = {
+      lastMessage: payload.lastMessage,
+    }
+
+    if (payload.groupName) {
+      updateModifyPayload.groupName = payload.groupName;
+    }
+    if (payload.groupPhoto) {
+      updateModifyPayload.groupPhoto = payload.groupPhoto;
+    }
+
+    if (payload.lastMessageType) {
+      updateModifyPayload.lastMessageType = payload.lastMessageType;
+    }
+ 
+    // create or update conversation
+    const conversationCreateOrUpdate = await txClient.conversation.upsert({
+      where: {
+        participants: sortedParticipants
+      },
+      create: createModifyPayload,
+      update: updateModifyPayload
+    })
+
+    const createMessageForThisConversation = await txClient.message.create({
+      data: {
+        message: conversationCreateOrUpdate.lastMessage,
+        conversationId: conversationCreateOrUpdate.id,
+        senderId: userId,
+        type: conversationCreateOrUpdate.lastMessageType
+      }
+    })
+
+
+   if(!isConversationExits){
     const participantUsersData = payload.conversationsUsers.map((user) => ({
       userId: user.userId,
-      conversationId: conversation.id,
+      conversationId: conversationCreateOrUpdate.id,
     }));
 
     const participantUsers = await txClient.conversationUsers.createMany({
       data: participantUsersData
     });
+   }
+
 
     const getConversation = await txClient.conversation.findUniqueOrThrow({
       where: {
-        id: conversation.id
+        id: conversationCreateOrUpdate.id
       },
       select: {
         id: true,
@@ -65,6 +122,7 @@ const createConversation = async (payload: {
         lastMessage: true,
         isGroup: true,
         groupName: true,
+        groupPhoto:true,
 
         conversationsUsers: {
           include: {
@@ -86,7 +144,11 @@ const createConversation = async (payload: {
     return getConversation;
   });
 
-  return result;
+  return{
+    result,
+    message:`${isConversationExits?"Conversation Update successfully":"Conversation created successfully"}`,
+    statusCode:isConversationExits?200:201,
+  };
 };
 
 
