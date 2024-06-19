@@ -2241,6 +2241,7 @@ export namespace Prisma {
     id: string | null
     participants: string | null
     lastMessage: string | null
+    messageType: string | null
     isGroup: boolean | null
     groupName: string | null
     groupPhoto: string | null
@@ -2253,6 +2254,7 @@ export namespace Prisma {
     id: string | null
     participants: string | null
     lastMessage: string | null
+    messageType: string | null
     isGroup: boolean | null
     groupName: string | null
     groupPhoto: string | null
@@ -2265,6 +2267,7 @@ export namespace Prisma {
     id: number
     participants: number
     lastMessage: number
+    messageType: number
     isGroup: number
     groupName: number
     groupPhoto: number
@@ -2279,6 +2282,7 @@ export namespace Prisma {
     id?: true
     participants?: true
     lastMessage?: true
+    messageType?: true
     isGroup?: true
     groupName?: true
     groupPhoto?: true
@@ -2291,6 +2295,7 @@ export namespace Prisma {
     id?: true
     participants?: true
     lastMessage?: true
+    messageType?: true
     isGroup?: true
     groupName?: true
     groupPhoto?: true
@@ -2303,6 +2308,7 @@ export namespace Prisma {
     id?: true
     participants?: true
     lastMessage?: true
+    messageType?: true
     isGroup?: true
     groupName?: true
     groupPhoto?: true
@@ -2388,6 +2394,7 @@ export namespace Prisma {
     id: string
     participants: string
     lastMessage: string
+    messageType: string | null
     isGroup: boolean
     groupName: string | null
     groupPhoto: string | null
@@ -2417,6 +2424,7 @@ export namespace Prisma {
     id?: boolean
     participants?: boolean
     lastMessage?: boolean
+    messageType?: boolean
     isGroup?: boolean
     groupName?: boolean
     groupPhoto?: boolean
@@ -2432,6 +2440,7 @@ export namespace Prisma {
     id?: boolean
     participants?: boolean
     lastMessage?: boolean
+    messageType?: boolean
     isGroup?: boolean
     groupName?: boolean
     groupPhoto?: boolean
@@ -2457,6 +2466,7 @@ export namespace Prisma {
       id: string
       participants: string
       lastMessage: string
+      messageType: string | null
       isGroup: boolean
       groupName: string | null
       groupPhoto: string | null
@@ -2863,6 +2873,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Conversation", 'String'>
     readonly participants: FieldRef<"Conversation", 'String'>
     readonly lastMessage: FieldRef<"Conversation", 'String'>
+    readonly messageType: FieldRef<"Conversation", 'String'>
     readonly isGroup: FieldRef<"Conversation", 'Boolean'>
     readonly groupName: FieldRef<"Conversation", 'String'>
     readonly groupPhoto: FieldRef<"Conversation", 'String'>
@@ -5117,6 +5128,7 @@ export namespace Prisma {
     id: 'id',
     participants: 'participants',
     lastMessage: 'lastMessage',
+    messageType: 'messageType',
     isGroup: 'isGroup',
     groupName: 'groupName',
     groupPhoto: 'groupPhoto',
@@ -5330,6 +5342,7 @@ export namespace Prisma {
     id?: StringFilter<"Conversation"> | string
     participants?: StringFilter<"Conversation"> | string
     lastMessage?: StringFilter<"Conversation"> | string
+    messageType?: StringNullableFilter<"Conversation"> | string | null
     isGroup?: BoolFilter<"Conversation"> | boolean
     groupName?: StringNullableFilter<"Conversation"> | string | null
     groupPhoto?: StringNullableFilter<"Conversation"> | string | null
@@ -5344,6 +5357,7 @@ export namespace Prisma {
     id?: SortOrder
     participants?: SortOrder
     lastMessage?: SortOrder
+    messageType?: SortOrderInput | SortOrder
     isGroup?: SortOrder
     groupName?: SortOrderInput | SortOrder
     groupPhoto?: SortOrderInput | SortOrder
@@ -5361,6 +5375,7 @@ export namespace Prisma {
     OR?: ConversationWhereInput[]
     NOT?: ConversationWhereInput | ConversationWhereInput[]
     lastMessage?: StringFilter<"Conversation"> | string
+    messageType?: StringNullableFilter<"Conversation"> | string | null
     isGroup?: BoolFilter<"Conversation"> | boolean
     groupName?: StringNullableFilter<"Conversation"> | string | null
     groupPhoto?: StringNullableFilter<"Conversation"> | string | null
@@ -5375,6 +5390,7 @@ export namespace Prisma {
     id?: SortOrder
     participants?: SortOrder
     lastMessage?: SortOrder
+    messageType?: SortOrderInput | SortOrder
     isGroup?: SortOrder
     groupName?: SortOrderInput | SortOrder
     groupPhoto?: SortOrderInput | SortOrder
@@ -5393,6 +5409,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Conversation"> | string
     participants?: StringWithAggregatesFilter<"Conversation"> | string
     lastMessage?: StringWithAggregatesFilter<"Conversation"> | string
+    messageType?: StringNullableWithAggregatesFilter<"Conversation"> | string | null
     isGroup?: BoolWithAggregatesFilter<"Conversation"> | boolean
     groupName?: StringNullableWithAggregatesFilter<"Conversation"> | string | null
     groupPhoto?: StringNullableWithAggregatesFilter<"Conversation"> | string | null
@@ -5614,6 +5631,7 @@ export namespace Prisma {
     id?: string
     participants: string
     lastMessage: string
+    messageType?: string | null
     isGroup?: boolean
     groupName?: string | null
     groupPhoto?: string | null
@@ -5628,6 +5646,7 @@ export namespace Prisma {
     id?: string
     participants: string
     lastMessage: string
+    messageType?: string | null
     isGroup?: boolean
     groupName?: string | null
     groupPhoto?: string | null
@@ -5642,6 +5661,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     participants?: StringFieldUpdateOperationsInput | string
     lastMessage?: StringFieldUpdateOperationsInput | string
+    messageType?: NullableStringFieldUpdateOperationsInput | string | null
     isGroup?: BoolFieldUpdateOperationsInput | boolean
     groupName?: NullableStringFieldUpdateOperationsInput | string | null
     groupPhoto?: NullableStringFieldUpdateOperationsInput | string | null
@@ -5656,6 +5676,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     participants?: StringFieldUpdateOperationsInput | string
     lastMessage?: StringFieldUpdateOperationsInput | string
+    messageType?: NullableStringFieldUpdateOperationsInput | string | null
     isGroup?: BoolFieldUpdateOperationsInput | boolean
     groupName?: NullableStringFieldUpdateOperationsInput | string | null
     groupPhoto?: NullableStringFieldUpdateOperationsInput | string | null
@@ -5670,6 +5691,7 @@ export namespace Prisma {
     id?: string
     participants: string
     lastMessage: string
+    messageType?: string | null
     isGroup?: boolean
     groupName?: string | null
     groupPhoto?: string | null
@@ -5682,6 +5704,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     participants?: StringFieldUpdateOperationsInput | string
     lastMessage?: StringFieldUpdateOperationsInput | string
+    messageType?: NullableStringFieldUpdateOperationsInput | string | null
     isGroup?: BoolFieldUpdateOperationsInput | boolean
     groupName?: NullableStringFieldUpdateOperationsInput | string | null
     groupPhoto?: NullableStringFieldUpdateOperationsInput | string | null
@@ -5694,6 +5717,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     participants?: StringFieldUpdateOperationsInput | string
     lastMessage?: StringFieldUpdateOperationsInput | string
+    messageType?: NullableStringFieldUpdateOperationsInput | string | null
     isGroup?: BoolFieldUpdateOperationsInput | boolean
     groupName?: NullableStringFieldUpdateOperationsInput | string | null
     groupPhoto?: NullableStringFieldUpdateOperationsInput | string | null
@@ -5997,6 +6021,7 @@ export namespace Prisma {
     id?: SortOrder
     participants?: SortOrder
     lastMessage?: SortOrder
+    messageType?: SortOrder
     isGroup?: SortOrder
     groupName?: SortOrder
     groupPhoto?: SortOrder
@@ -6009,6 +6034,7 @@ export namespace Prisma {
     id?: SortOrder
     participants?: SortOrder
     lastMessage?: SortOrder
+    messageType?: SortOrder
     isGroup?: SortOrder
     groupName?: SortOrder
     groupPhoto?: SortOrder
@@ -6021,6 +6047,7 @@ export namespace Prisma {
     id?: SortOrder
     participants?: SortOrder
     lastMessage?: SortOrder
+    messageType?: SortOrder
     isGroup?: SortOrder
     groupName?: SortOrder
     groupPhoto?: SortOrder
@@ -6692,6 +6719,7 @@ export namespace Prisma {
     id?: string
     participants: string
     lastMessage: string
+    messageType?: string | null
     isGroup?: boolean
     groupName?: string | null
     groupPhoto?: string | null
@@ -6705,6 +6733,7 @@ export namespace Prisma {
     id?: string
     participants: string
     lastMessage: string
+    messageType?: string | null
     isGroup?: boolean
     groupName?: string | null
     groupPhoto?: string | null
@@ -6771,6 +6800,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     participants?: StringFieldUpdateOperationsInput | string
     lastMessage?: StringFieldUpdateOperationsInput | string
+    messageType?: NullableStringFieldUpdateOperationsInput | string | null
     isGroup?: BoolFieldUpdateOperationsInput | boolean
     groupName?: NullableStringFieldUpdateOperationsInput | string | null
     groupPhoto?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6784,6 +6814,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     participants?: StringFieldUpdateOperationsInput | string
     lastMessage?: StringFieldUpdateOperationsInput | string
+    messageType?: NullableStringFieldUpdateOperationsInput | string | null
     isGroup?: BoolFieldUpdateOperationsInput | boolean
     groupName?: NullableStringFieldUpdateOperationsInput | string | null
     groupPhoto?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6797,6 +6828,7 @@ export namespace Prisma {
     id?: string
     participants: string
     lastMessage: string
+    messageType?: string | null
     isGroup?: boolean
     groupName?: string | null
     groupPhoto?: string | null
@@ -6810,6 +6842,7 @@ export namespace Prisma {
     id?: string
     participants: string
     lastMessage: string
+    messageType?: string | null
     isGroup?: boolean
     groupName?: string | null
     groupPhoto?: string | null
@@ -6870,6 +6903,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     participants?: StringFieldUpdateOperationsInput | string
     lastMessage?: StringFieldUpdateOperationsInput | string
+    messageType?: NullableStringFieldUpdateOperationsInput | string | null
     isGroup?: BoolFieldUpdateOperationsInput | boolean
     groupName?: NullableStringFieldUpdateOperationsInput | string | null
     groupPhoto?: NullableStringFieldUpdateOperationsInput | string | null
@@ -6883,6 +6917,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     participants?: StringFieldUpdateOperationsInput | string
     lastMessage?: StringFieldUpdateOperationsInput | string
+    messageType?: NullableStringFieldUpdateOperationsInput | string | null
     isGroup?: BoolFieldUpdateOperationsInput | boolean
     groupName?: NullableStringFieldUpdateOperationsInput | string | null
     groupPhoto?: NullableStringFieldUpdateOperationsInput | string | null

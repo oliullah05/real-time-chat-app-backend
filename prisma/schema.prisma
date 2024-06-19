@@ -27,7 +27,8 @@ model User {
 
   sentMessages      Message[]           @relation("sentBy")
   ConversationUsers ConversationUsers[]
-@@index([name])
+
+  @@index([name])
   @@map("users")
 }
 
@@ -40,7 +41,8 @@ model Conversation {
   id                 String              @id @default(uuid())
   participants       String              @unique
   lastMessage        String
-  isGroup            Boolean            @default(false)
+
+  isGroup            Boolean             @default(false)
   groupName          String?
   groupPhoto         String?
   isDeleted          Boolean             @default(false)

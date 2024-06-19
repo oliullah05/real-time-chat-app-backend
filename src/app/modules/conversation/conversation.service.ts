@@ -35,10 +35,10 @@ const createConversation = async (payload: {
     if (payload.isGroup) {
       modifyPayload.isGroup = payload.isGroup;
     }
-    if(payload.groupName){
+    if (payload.groupName) {
       modifyPayload.groupName = payload.groupName;
     }
-    if(payload.groupPhoto){
+    if (payload.groupPhoto) {
       modifyPayload.groupPhoto = payload.groupPhoto;
 
     }
@@ -213,7 +213,7 @@ const getConversationByParticipants = async (participants: string, userId: strin
   const sortedParticipantsArray = participantsArray.sort();
   const SortedParticipants = sortedParticipantsArray.join('/');
 
-console.log(SortedParticipants);
+  console.log(SortedParticipants);
   const conversation = await prisma.conversation.findUniqueOrThrow({
     where: {
       participants: SortedParticipants
