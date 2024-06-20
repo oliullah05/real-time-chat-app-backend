@@ -5370,10 +5370,10 @@ export namespace Prisma {
 
   export type ConversationWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    participants?: string
     AND?: ConversationWhereInput | ConversationWhereInput[]
     OR?: ConversationWhereInput[]
     NOT?: ConversationWhereInput | ConversationWhereInput[]
+    participants?: StringFilter<"Conversation"> | string
     lastMessage?: StringFilter<"Conversation"> | string
     lastMessageType?: StringFilter<"Conversation"> | string
     isGroup?: BoolFilter<"Conversation"> | boolean
@@ -5384,7 +5384,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Conversation"> | Date | string
     conversationsUsers?: ConversationUsersListRelationFilter
     Message?: MessageListRelationFilter
-  }, "id" | "participants">
+  }, "id">
 
   export type ConversationOrderByWithAggregationInput = {
     id?: SortOrder

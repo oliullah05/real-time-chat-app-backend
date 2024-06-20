@@ -4,7 +4,7 @@ import ApiError from "../../errors/apiError";
 import prisma from "../../shared/prisma";
 import { TPagination, TParticipantUsers } from "./conversation.type";
 
-const createConversation = async (payload: {
+const createOrUpdateConversationThenSlientlyCreateMessage = async (payload: {
   lastMessage: string;
   participants: string;
   isGroup?: boolean;
@@ -25,7 +25,7 @@ const createConversation = async (payload: {
 
   // check is conversation exits 
 
-  const isConversationExits = await prisma.conversation.findUnique({
+  const isConversationExits = await prisma.conversation.findFirst({
     where: {
       participants: sortedParticipants
     }
@@ -36,7 +36,7 @@ const createConversation = async (payload: {
   function checkParticipantsAndUsersMatch(participants: string, conversationsUsers: {
     userId: string;
   }[]) {
-   const participantIDs = participants.split('/');
+    const participantIDs = participants.split('/');
     const userIDs = conversationsUsers.map(user => user.userId);
     const isMatch = participantIDs.length === userIDs.length &&
       participantIDs.every(id => userIDs.includes(id));
@@ -51,9 +51,9 @@ const createConversation = async (payload: {
     throw new ApiError(400, "Group can't be false when participants more then 2")
   }
 
-  if (participantsArray.length !== payload.conversationsUsers.length) {
-    throw new ApiError(400, "participants and conversationsUsers not match")
-  }
+  // if (participantsArray.length !== payload.conversationsUsers.length) {
+  //   throw new ApiError(400, "participants and conversationsUsers not match")
+  // }
 
 
   if (payload.isGroup && payload.conversationsUsers.length < 3 || payload.isGroup && participantsArray.length < 3) {
@@ -98,13 +98,35 @@ const createConversation = async (payload: {
     }
 
     // create or update conversation
-    const conversationCreateOrUpdate = await txClient.conversation.upsert({
-      where: {
-        participants: sortedParticipants
-      },
-      create: createModifyPayload,
-      update: updateModifyPayload
-    })
+    // const conversationCreateOrUpdate = await txClient.conversation.upsert({
+    //   where: {
+    //     participants: sortedParticipants
+    //   },
+    //   create: createModifyPayload,
+    //   update: updateModifyPayload
+    // })
+
+
+let conversationCreateOrUpdate:any = [];
+
+
+if(isConversationExits){
+  conversationCreateOrUpdate = await txClient.conversation.update({
+    where:{
+      id:isConversationExits.id
+    },
+    data:updateModifyPayload
+  })
+
+}
+
+else if(!isConversationExits){
+  conversationCreateOrUpdate = await txClient.conversation.create({
+    data:createModifyPayload
+  })
+}
+
+
 
     const createMessageForThisConversation = await txClient.message.create({
       data: {
@@ -165,6 +187,137 @@ const createConversation = async (payload: {
     message: `${isConversationExits ? "Conversation Update successfully" : "Conversation created successfully"}`,
     statusCode: isConversationExits ? 200 : 201,
   };
+};
+
+
+
+const createGroupConversationThenSlientlyCreateMessage = async (payload: {
+  lastMessage: string;
+  participants: string;
+  isGroup?: boolean;
+  lastMessageType?: string,
+  conversationsUsers: [{
+    userId: string;
+  }];
+  groupName?: string;
+  groupPhoto?: string
+}, userId: string) => {
+
+  // sort participants
+
+  const participants = payload.participants;
+  const participantsArray = participants.split('/');
+  const sortedParticipantsArray = participantsArray.sort();
+  const sortedParticipants = sortedParticipantsArray.join('/');
+
+
+  // all necessary validation added here........................................................................
+
+  function checkParticipantsAndUsersMatch(participants: string, conversationsUsers: {
+    userId: string;
+  }[]) {
+    const participantIDs = participants.split('/');
+    const userIDs = conversationsUsers.map(user => user.userId);
+    const isMatch = participantIDs.length === userIDs.length &&
+      participantIDs.every(id => userIDs.includes(id));
+    return isMatch ? true : false;
+  }
+
+  if (!checkParticipantsAndUsersMatch(payload.participants, payload.conversationsUsers)) {
+    throw new ApiError(400, "Participants and conversations users did not match.")
+  }
+
+  if (payload.isGroup === false && participantsArray.length > 2 || payload.isGroup === false && payload.conversationsUsers.length > 2) {
+    throw new ApiError(400, "Group can't be false when participants more then 2")
+  }
+
+
+  if ( payload.conversationsUsers.length < 3 || participantsArray.length < 3) {
+    throw new ApiError(400, "Group must be 3 member or higher")
+  }
+
+  const result = await prisma.$transaction(async (txClient) => {
+    // payload for create 
+    const createModifyPayload: any = {
+      lastMessage: payload.lastMessage,
+      participants: sortedParticipants,
+    }
+    if (payload.isGroup) {
+      createModifyPayload.isGroup = payload.isGroup;
+    }
+    if (payload.groupName) {
+      createModifyPayload.groupName = payload.groupName;
+    }
+    if (payload.groupPhoto) {
+      createModifyPayload.groupPhoto = payload.groupPhoto;
+    }
+
+    if (payload.lastMessageType) {
+      createModifyPayload.lastMessageType = payload.lastMessageType;
+    }
+
+
+
+    // create group conversation
+    const createGroupConversation = await txClient.conversation.create({
+      data: createModifyPayload
+    })
+
+    const createMessageForThisGroupConversation = await txClient.message.create({
+      data: {
+        message: createGroupConversation.lastMessage,
+        conversationId: createGroupConversation.id,
+        senderId: userId,
+        type: createGroupConversation.lastMessageType
+      }
+    })
+
+
+   
+      const participantUsersData = payload.conversationsUsers.map((user) => ({
+        userId: user.userId,
+        conversationId: createGroupConversation.id,
+      }));
+
+      const participantUsers = await txClient.conversationUsers.createMany({
+        data: participantUsersData
+      });
+   
+
+
+    const getConversation = await txClient.conversation.findUniqueOrThrow({
+      where: {
+        id: createGroupConversation.id
+      },
+      select: {
+        id: true,
+        participants: true,
+        lastMessage: true,
+        isGroup: true,
+        groupName: true,
+        groupPhoto: true,
+
+        conversationsUsers: {
+          include: {
+            user: {
+              select: {
+                name: true,
+                email: true
+              }
+            }
+          }
+        },
+
+        isDeleted: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    });
+
+    return getConversation;
+  });
+
+  return  result
 };
 
 
@@ -292,7 +445,7 @@ const getConversationByParticipants = async (participants: string, userId: strin
   const SortedParticipants = sortedParticipantsArray.join('/');
 
   console.log(SortedParticipants);
-  const conversation = await prisma.conversation.findUniqueOrThrow({
+  const conversation = await prisma.conversation.findFirstOrThrow({
     where: {
       participants: SortedParticipants
     },
@@ -338,7 +491,7 @@ const updateConversationByParticipants = async (participants: string, payload: P
   const sortedParticipantsArray = participantsArray.sort();
   const SortedParticipants = sortedParticipantsArray.join('/');
 
-  await prisma.conversation.findFirstOrThrow({
+ const conversation =  await prisma.conversation.findFirstOrThrow({
     where: {
       participants: SortedParticipants
     }
@@ -346,7 +499,7 @@ const updateConversationByParticipants = async (participants: string, payload: P
 
   const result = await prisma.conversation.update({
     where: {
-      participants: SortedParticipants,
+      id: conversation.id,
       isDeleted: false
     },
     data: payload
@@ -362,7 +515,9 @@ const updateConversationByParticipants = async (participants: string, payload: P
 
 
 export const ConversationServices = {
-  createConversation,
+  createOrUpdateConversationThenSlientlyCreateMessage,
+  createGroupConversationThenSlientlyCreateMessage,
+
   getMyConversations,
   getConversationById,
   updateConversationByParticipants,

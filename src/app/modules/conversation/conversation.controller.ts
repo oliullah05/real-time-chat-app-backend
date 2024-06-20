@@ -5,9 +5,9 @@ import sendResponse from "../../shared/sendResponse";
 import { ConversationServices } from "./conversation.service";
 import { TParticipantUsers } from "./conversation.type";
 
-const createConversation = catchAsync(async (req, res) => {
+const createOrUpdateConversationThenSlientlyCreateMessage = catchAsync(async (req, res) => {
    const userId = req.user.id;
-    const result = await ConversationServices.createConversation(req.body,userId);
+    const result = await ConversationServices.createOrUpdateConversationThenSlientlyCreateMessage(req.body,userId);
     
     sendResponse(res, {
         success: true,
@@ -16,6 +16,38 @@ const createConversation = catchAsync(async (req, res) => {
         data: result.result
     })
 })
+
+
+
+const createGroupConversationThenSlientlyCreateMessage = catchAsync(async (req, res) => {
+   const userId = req.user.id;
+    const result = await ConversationServices.createGroupConversationThenSlientlyCreateMessage(req.body,userId);
+    
+    sendResponse(res, {
+        success: true,
+        message: "Group Created successfully",
+        statusCode:201,
+        data: result
+    })
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 const getMyConversations = catchAsync(async (req, res) => {
     const pagination = pick(req.query, ["page", "limit"]) as { page: number, limit: number };
@@ -34,6 +66,8 @@ const getMyConversations = catchAsync(async (req, res) => {
         }
     })
 })
+
+
 
 
 const getConversationById = catchAsync(async (req, res) => {
@@ -83,7 +117,8 @@ const updateConversationByParticipants = catchAsync(async (req, res) => {
 
 
 export const ConversationControllers = {
-    createConversation,
+    createOrUpdateConversationThenSlientlyCreateMessage,
+    createGroupConversationThenSlientlyCreateMessage,
     getMyConversations,
     getConversationById,
     updateConversationByParticipants,

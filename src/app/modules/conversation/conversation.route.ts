@@ -6,9 +6,13 @@ import auth from "../../middlewars/auth";
 const router = express.Router();
 
 
-router.post("/create-conversation", auth("user","admin"),
+router.post("/create-or-update-conversation-then-sliently-create-message", auth("user","admin"),
 validateRequest(ConversationValidations.createConversation), 
-ConversationControllers.createConversation);
+ConversationControllers.createOrUpdateConversationThenSlientlyCreateMessage);
+
+router.post("/create-group-conversation-then-sliently-create-message", auth("user","admin"),
+validateRequest(ConversationValidations.createConversation), 
+ConversationControllers.createGroupConversationThenSlientlyCreateMessage);
 
 
 router.get("/my-conversations", auth("user","admin"),
