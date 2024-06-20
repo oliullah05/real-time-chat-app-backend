@@ -11,6 +11,16 @@ const createConversation = z.object({
         isGroup:z.boolean().optional().default(false),
         groupName:z.string().optional(),
         groupPhoto:z.string().optional(),
+        lastMessageType: z.enum([
+            'web',
+            'code',
+            'video',
+            'audio',
+            'image',
+            'document',
+            'archive',
+            'text'
+        ],{required_error:"Message type is required."}),
         conversationsUsers:z.array(ConversationUsers,{required_error:"ConversationUsers is required"})
     })
 })

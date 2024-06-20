@@ -179,6 +179,17 @@ exports.UserRole = exports.$Enums.UserRole = {
   user: 'user'
 };
 
+exports.MessageType = exports.$Enums.MessageType = {
+  web: 'web',
+  code: 'code',
+  video: 'video',
+  audio: 'audio',
+  image: 'image',
+  document: 'document',
+  archive: 'archive',
+  text: 'text'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Conversation: 'Conversation',

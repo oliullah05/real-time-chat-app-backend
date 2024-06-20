@@ -41,7 +41,7 @@ model Conversation {
   id                 String              @id @default(uuid())
   participants       String              
   lastMessage        String
-  lastMessageType    String             @default("text")
+  lastMessageType    MessageType             @default(text)
   isGroup            Boolean             @default(false)
   groupName          String?
   groupPhoto         String?
@@ -68,7 +68,7 @@ model ConversationUsers {
 model Message {
   id        String   @id @default(uuid())
   message   String
-  type      String   @default("text") //atar type pore define hobe
+  type      MessageType   @default(text) //atar type pore define hobe
   isDeleted Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -80,4 +80,17 @@ model Message {
   senderInfo User   @relation(fields: [senderId], references: [id], name: "sentBy")
 
   @@map("messages")
+}
+
+
+
+enum MessageType {
+  web
+  code
+  video
+  audio
+  image
+  document
+  archive
+  text
 }
