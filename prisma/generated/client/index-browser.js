@@ -153,6 +153,7 @@ exports.Prisma.MessageScalarFieldEnum = {
   id: 'id',
   message: 'message',
   type: 'type',
+  fileName: 'fileName',
   isDeleted: 'isDeleted',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
@@ -187,7 +188,9 @@ exports.MessageType = exports.$Enums.MessageType = {
   image: 'image',
   document: 'document',
   archive: 'archive',
-  text: 'text'
+  text: 'text',
+  script: 'script',
+  data: 'data'
 };
 
 exports.Prisma.ModelName = {

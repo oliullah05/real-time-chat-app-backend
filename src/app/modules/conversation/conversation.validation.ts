@@ -19,8 +19,10 @@ const createConversation = z.object({
             'image',
             'document',
             'archive',
-            'text'
-        ],{required_error:"Message type is required."}),
+            'text',
+            'script',
+            'data',
+          ],{required_error:"Message type is required."}),
         conversationsUsers:z.array(ConversationUsers,{required_error:"ConversationUsers is required"})
     })
 })

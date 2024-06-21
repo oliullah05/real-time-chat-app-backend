@@ -94,4 +94,6 @@ enum MessageType {
   document
   archive
   text
+  script
+  data
 }

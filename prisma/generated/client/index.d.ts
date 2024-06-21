@@ -54,7 +54,9 @@ export const MessageType: {
   image: 'image',
   document: 'document',
   archive: 'archive',
-  text: 'text'
+  text: 'text',
+  script: 'script',
+  data: 'data'
 };
 
 export type MessageType = (typeof MessageType)[keyof typeof MessageType]
@@ -4171,6 +4173,7 @@ export namespace Prisma {
     id: string | null
     message: string | null
     type: $Enums.MessageType | null
+    fileName: string | null
     isDeleted: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -4182,6 +4185,7 @@ export namespace Prisma {
     id: string | null
     message: string | null
     type: $Enums.MessageType | null
+    fileName: string | null
     isDeleted: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -4193,6 +4197,7 @@ export namespace Prisma {
     id: number
     message: number
     type: number
+    fileName: number
     isDeleted: number
     createdAt: number
     updatedAt: number
@@ -4206,6 +4211,7 @@ export namespace Prisma {
     id?: true
     message?: true
     type?: true
+    fileName?: true
     isDeleted?: true
     createdAt?: true
     updatedAt?: true
@@ -4217,6 +4223,7 @@ export namespace Prisma {
     id?: true
     message?: true
     type?: true
+    fileName?: true
     isDeleted?: true
     createdAt?: true
     updatedAt?: true
@@ -4228,6 +4235,7 @@ export namespace Prisma {
     id?: true
     message?: true
     type?: true
+    fileName?: true
     isDeleted?: true
     createdAt?: true
     updatedAt?: true
@@ -4312,6 +4320,7 @@ export namespace Prisma {
     id: string
     message: string
     type: $Enums.MessageType
+    fileName: string | null
     isDeleted: boolean
     createdAt: Date
     updatedAt: Date
@@ -4340,6 +4349,7 @@ export namespace Prisma {
     id?: boolean
     message?: boolean
     type?: boolean
+    fileName?: boolean
     isDeleted?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -4353,6 +4363,7 @@ export namespace Prisma {
     id?: boolean
     message?: boolean
     type?: boolean
+    fileName?: boolean
     isDeleted?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -4376,6 +4387,7 @@ export namespace Prisma {
       id: string
       message: string
       type: $Enums.MessageType
+      fileName: string | null
       isDeleted: boolean
       createdAt: Date
       updatedAt: Date
@@ -4781,6 +4793,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Message", 'String'>
     readonly message: FieldRef<"Message", 'String'>
     readonly type: FieldRef<"Message", 'MessageType'>
+    readonly fileName: FieldRef<"Message", 'String'>
     readonly isDeleted: FieldRef<"Message", 'Boolean'>
     readonly createdAt: FieldRef<"Message", 'DateTime'>
     readonly updatedAt: FieldRef<"Message", 'DateTime'>
@@ -5170,6 +5183,7 @@ export namespace Prisma {
     id: 'id',
     message: 'message',
     type: 'type',
+    fileName: 'fileName',
     isDeleted: 'isDeleted',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
@@ -5501,6 +5515,7 @@ export namespace Prisma {
     id?: StringFilter<"Message"> | string
     message?: StringFilter<"Message"> | string
     type?: EnumMessageTypeFilter<"Message"> | $Enums.MessageType
+    fileName?: StringNullableFilter<"Message"> | string | null
     isDeleted?: BoolFilter<"Message"> | boolean
     createdAt?: DateTimeFilter<"Message"> | Date | string
     updatedAt?: DateTimeFilter<"Message"> | Date | string
@@ -5514,6 +5529,7 @@ export namespace Prisma {
     id?: SortOrder
     message?: SortOrder
     type?: SortOrder
+    fileName?: SortOrderInput | SortOrder
     isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -5530,6 +5546,7 @@ export namespace Prisma {
     NOT?: MessageWhereInput | MessageWhereInput[]
     message?: StringFilter<"Message"> | string
     type?: EnumMessageTypeFilter<"Message"> | $Enums.MessageType
+    fileName?: StringNullableFilter<"Message"> | string | null
     isDeleted?: BoolFilter<"Message"> | boolean
     createdAt?: DateTimeFilter<"Message"> | Date | string
     updatedAt?: DateTimeFilter<"Message"> | Date | string
@@ -5543,6 +5560,7 @@ export namespace Prisma {
     id?: SortOrder
     message?: SortOrder
     type?: SortOrder
+    fileName?: SortOrderInput | SortOrder
     isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -5560,6 +5578,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Message"> | string
     message?: StringWithAggregatesFilter<"Message"> | string
     type?: EnumMessageTypeWithAggregatesFilter<"Message"> | $Enums.MessageType
+    fileName?: StringNullableWithAggregatesFilter<"Message"> | string | null
     isDeleted?: BoolWithAggregatesFilter<"Message"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Message"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Message"> | Date | string
@@ -5796,6 +5815,7 @@ export namespace Prisma {
     id?: string
     message: string
     type?: $Enums.MessageType
+    fileName?: string | null
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5807,6 +5827,7 @@ export namespace Prisma {
     id?: string
     message: string
     type?: $Enums.MessageType
+    fileName?: string | null
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5818,6 +5839,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     type?: EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+    fileName?: NullableStringFieldUpdateOperationsInput | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5829,6 +5851,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     type?: EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+    fileName?: NullableStringFieldUpdateOperationsInput | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5840,6 +5863,7 @@ export namespace Prisma {
     id?: string
     message: string
     type?: $Enums.MessageType
+    fileName?: string | null
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5851,6 +5875,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     type?: EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+    fileName?: NullableStringFieldUpdateOperationsInput | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5860,6 +5885,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     type?: EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+    fileName?: NullableStringFieldUpdateOperationsInput | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6139,6 +6165,7 @@ export namespace Prisma {
     id?: SortOrder
     message?: SortOrder
     type?: SortOrder
+    fileName?: SortOrder
     isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -6150,6 +6177,7 @@ export namespace Prisma {
     id?: SortOrder
     message?: SortOrder
     type?: SortOrder
+    fileName?: SortOrder
     isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -6161,6 +6189,7 @@ export namespace Prisma {
     id?: SortOrder
     message?: SortOrder
     type?: SortOrder
+    fileName?: SortOrder
     isDeleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -6576,6 +6605,7 @@ export namespace Prisma {
     id?: string
     message: string
     type?: $Enums.MessageType
+    fileName?: string | null
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -6586,6 +6616,7 @@ export namespace Prisma {
     id?: string
     message: string
     type?: $Enums.MessageType
+    fileName?: string | null
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -6643,6 +6674,7 @@ export namespace Prisma {
     id?: StringFilter<"Message"> | string
     message?: StringFilter<"Message"> | string
     type?: EnumMessageTypeFilter<"Message"> | $Enums.MessageType
+    fileName?: StringNullableFilter<"Message"> | string | null
     isDeleted?: BoolFilter<"Message"> | boolean
     createdAt?: DateTimeFilter<"Message"> | Date | string
     updatedAt?: DateTimeFilter<"Message"> | Date | string
@@ -6696,6 +6728,7 @@ export namespace Prisma {
     id?: string
     message: string
     type?: $Enums.MessageType
+    fileName?: string | null
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -6706,6 +6739,7 @@ export namespace Prisma {
     id?: string
     message: string
     type?: $Enums.MessageType
+    fileName?: string | null
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -7038,6 +7072,7 @@ export namespace Prisma {
     id?: string
     message: string
     type?: $Enums.MessageType
+    fileName?: string | null
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -7052,6 +7087,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     type?: EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+    fileName?: NullableStringFieldUpdateOperationsInput | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7062,6 +7098,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     type?: EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+    fileName?: NullableStringFieldUpdateOperationsInput | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7072,6 +7109,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     type?: EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+    fileName?: NullableStringFieldUpdateOperationsInput | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7098,6 +7136,7 @@ export namespace Prisma {
     id?: string
     message: string
     type?: $Enums.MessageType
+    fileName?: string | null
     isDeleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -7120,6 +7159,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     type?: EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+    fileName?: NullableStringFieldUpdateOperationsInput | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7130,6 +7170,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     type?: EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+    fileName?: NullableStringFieldUpdateOperationsInput | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7140,6 +7181,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     type?: EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+    fileName?: NullableStringFieldUpdateOperationsInput | string | null
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

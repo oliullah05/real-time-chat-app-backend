@@ -12,8 +12,10 @@ const createMessage = z.object({
             'image',
             'document',
             'archive',
-            'text'
-        ],{required_error:"Message type is required."})
+            'text',
+            'script',
+            'data',
+          ],{required_error:"Message type is required."})
     })
 
 })
@@ -22,3 +24,4 @@ const createMessage = z.object({
 export const MessageValiditons = {
     createMessage
 }
+
