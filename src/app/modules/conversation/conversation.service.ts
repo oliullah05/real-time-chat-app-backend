@@ -60,10 +60,45 @@ const createOrUpdateConversationThenSlientlyCreateMessage = async (payload: {
     throw new ApiError(400, "Group must be 3 member or higher")
   }
 
+
+
+
+  // define for conversation message show
+  let conversationLastMessage = "";
+
+  if (payload.lastMessageType === "text") {
+    conversationLastMessage = payload.lastMessage
+  }
+  else if (payload.lastMessageType === "voice") {
+    conversationLastMessage = "Send an audio clip"
+  }
+  else if (payload.lastMessageType === "audio") {
+    conversationLastMessage = "Send an audio file"
+  }
+  else if (payload.lastMessageType === "video") {
+    conversationLastMessage = "Send an video file"
+  }
+  else if (payload.lastMessageType === "image") {
+    conversationLastMessage = "Send an image"
+  }
+  else if (
+    payload.lastMessageType === "web" ||
+    payload.lastMessageType === "code" ||
+    payload.lastMessageType === "document" ||
+    payload.lastMessageType === "archive" ||
+    payload.lastMessageType === "script" ||
+    payload.lastMessageType === "data") {
+    conversationLastMessage = "Send a file"
+  }
+
+
+
+
+
   const result = await prisma.$transaction(async (txClient) => {
     // payload for create 
     const createModifyPayload: any = {
-      lastMessage: payload.lastMessage,
+      lastMessage: conversationLastMessage,
       participants: sortedParticipants,
     }
     if (payload.isGroup) {
@@ -83,7 +118,7 @@ const createOrUpdateConversationThenSlientlyCreateMessage = async (payload: {
 
     // payload for update 
     const updateModifyPayload: any = {
-      lastMessage: payload.lastMessage,
+      lastMessage: conversationLastMessage,
     }
 
     if (payload.groupName) {
@@ -107,30 +142,30 @@ const createOrUpdateConversationThenSlientlyCreateMessage = async (payload: {
     // })
 
 
-let conversationCreateOrUpdate:any = [];
+    let conversationCreateOrUpdate: any = [];
 
 
-if(isConversationExits){
-  conversationCreateOrUpdate = await txClient.conversation.update({
-    where:{
-      id:isConversationExits.id
-    },
-    data:updateModifyPayload
-  })
+    if (isConversationExits) {
+      conversationCreateOrUpdate = await txClient.conversation.update({
+        where: {
+          id: isConversationExits.id
+        },
+        data: updateModifyPayload
+      })
 
-}
+    }
 
-else if(!isConversationExits){
-  conversationCreateOrUpdate = await txClient.conversation.create({
-    data:createModifyPayload
-  })
-}
+    else if (!isConversationExits) {
+      conversationCreateOrUpdate = await txClient.conversation.create({
+        data: createModifyPayload
+      })
+    }
 
 
 
     const createMessageForThisConversation = await txClient.message.create({
       data: {
-        message: conversationCreateOrUpdate.lastMessage,
+        message: payload.lastMessage,
         conversationId: conversationCreateOrUpdate.id,
         senderId: userId,
         type: conversationCreateOrUpdate.lastMessageType
@@ -232,14 +267,52 @@ const createGroupConversationThenSlientlyCreateMessage = async (payload: {
   }
 
 
-  if ( payload.conversationsUsers.length < 3 || participantsArray.length < 3) {
+  if (payload.conversationsUsers.length < 3 || participantsArray.length < 3) {
     throw new ApiError(400, "Group must be 3 member or higher")
   }
+
+
+
+
+  // define for conversation message show
+
+  let conversationLastMessage = "";
+  if (payload.lastMessageType === "text") {
+    conversationLastMessage = payload.lastMessage
+  }
+  else if (payload.lastMessageType === "voice") {
+    conversationLastMessage = "Send an audio clip"
+  }
+  else if (payload.lastMessageType === "audio") {
+    conversationLastMessage = "Send an audio file"
+  }
+  else if (payload.lastMessageType === "video") {
+    conversationLastMessage = "Send an video file"
+  }
+  else if (payload.lastMessageType === "image") {
+    conversationLastMessage = "Send an image"
+  }
+  else if (
+    payload.lastMessageType === "web" ||
+    payload.lastMessageType === "code" ||
+    payload.lastMessageType === "document" ||
+    payload.lastMessageType === "archive" ||
+    payload.lastMessageType === "script" ||
+    payload.lastMessageType === "data") {
+    conversationLastMessage = "Send a file"
+  }
+
+
+
+
+
+
+
 
   const result = await prisma.$transaction(async (txClient) => {
     // payload for create 
     const createModifyPayload: any = {
-      lastMessage: payload.lastMessage,
+      lastMessage: conversationLastMessage,
       participants: sortedParticipants,
     }
     if (payload.isGroup) {
@@ -265,7 +338,7 @@ const createGroupConversationThenSlientlyCreateMessage = async (payload: {
 
     const createMessageForThisGroupConversation = await txClient.message.create({
       data: {
-        message: createGroupConversation.lastMessage,
+        message: payload.lastMessage,
         conversationId: createGroupConversation.id,
         senderId: userId,
         type: createGroupConversation.lastMessageType
@@ -273,16 +346,16 @@ const createGroupConversationThenSlientlyCreateMessage = async (payload: {
     })
 
 
-   
-      const participantUsersData = payload.conversationsUsers.map((user) => ({
-        userId: user.userId,
-        conversationId: createGroupConversation.id,
-      }));
 
-      const participantUsers = await txClient.conversationUsers.createMany({
-        data: participantUsersData
-      });
-   
+    const participantUsersData = payload.conversationsUsers.map((user) => ({
+      userId: user.userId,
+      conversationId: createGroupConversation.id,
+    }));
+
+    const participantUsers = await txClient.conversationUsers.createMany({
+      data: participantUsersData
+    });
+
 
 
     const getConversation = await txClient.conversation.findUniqueOrThrow({
@@ -317,7 +390,7 @@ const createGroupConversationThenSlientlyCreateMessage = async (payload: {
     return getConversation;
   });
 
-  return  result
+  return result
 };
 
 
@@ -491,7 +564,7 @@ const updateConversationByParticipants = async (participants: string, payload: P
   const sortedParticipantsArray = participantsArray.sort();
   const SortedParticipants = sortedParticipantsArray.join('/');
 
- const conversation =  await prisma.conversation.findFirstOrThrow({
+  const conversation = await prisma.conversation.findFirstOrThrow({
     where: {
       participants: SortedParticipants
     }

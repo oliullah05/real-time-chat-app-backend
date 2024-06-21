@@ -47,14 +47,15 @@ export type UserRole = (typeof UserRole)[keyof typeof UserRole]
 
 
 export const MessageType: {
+  text: 'text',
+  voice: 'voice',
+  audio: 'audio',
+  video: 'video',
+  image: 'image',
   web: 'web',
   code: 'code',
-  video: 'video',
-  audio: 'audio',
-  image: 'image',
   document: 'document',
   archive: 'archive',
-  text: 'text',
   script: 'script',
   data: 'data'
 };

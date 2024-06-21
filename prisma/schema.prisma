@@ -41,7 +41,7 @@ model Conversation {
   id                 String              @id @default(uuid())
   participants       String              
   lastMessage        String
-  lastMessageType    MessageType             @default(text)
+  lastMessageType    MessageType           
   isGroup            Boolean             @default(false)
   groupName          String?
   groupPhoto         String?
@@ -68,7 +68,7 @@ model ConversationUsers {
 model Message {
   id        String   @id @default(uuid())
   message   String
-  type      MessageType   @default(text) 
+  type      MessageType  
   fileName  String?
   isDeleted Boolean  @default(false)
   createdAt DateTime @default(now())
@@ -86,14 +86,15 @@ model Message {
 
 
 enum MessageType {
+  text
+  voice
+  audio
+  video
+  image
   web
   code
-  video
-  audio
-  image
   document
   archive
-  text
   script
   data
 }

@@ -22,7 +22,7 @@ const createConversation = z.object({
             'text',
             'script',
             'data',
-          ],{required_error:"Message type is required."}),
+          ],{required_error:"lastMessageType type is required."}),
         conversationsUsers:z.array(ConversationUsers,{required_error:"ConversationUsers is required"})
     })
 })

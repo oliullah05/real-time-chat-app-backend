@@ -181,14 +181,15 @@ exports.UserRole = exports.$Enums.UserRole = {
 };
 
 exports.MessageType = exports.$Enums.MessageType = {
+  text: 'text',
+  voice: 'voice',
+  audio: 'audio',
+  video: 'video',
+  image: 'image',
   web: 'web',
   code: 'code',
-  video: 'video',
-  audio: 'audio',
-  image: 'image',
   document: 'document',
   archive: 'archive',
-  text: 'text',
   script: 'script',
   data: 'data'
 };
