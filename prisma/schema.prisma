@@ -68,7 +68,8 @@ model ConversationUsers {
 model Message {
   id        String   @id @default(uuid())
   message   String
-  type      MessageType   @default(text) //atar type pore define hobe
+  type      MessageType   @default(text) 
+  fileName  String?
   isDeleted Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
