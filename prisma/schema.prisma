@@ -70,6 +70,7 @@ model Message {
   message   String
   type      MessageType  
   fileName  String?
+  fileSize String?
   isDeleted Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

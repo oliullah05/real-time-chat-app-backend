@@ -154,6 +154,7 @@ exports.Prisma.MessageScalarFieldEnum = {
   message: 'message',
   type: 'type',
   fileName: 'fileName',
+  fileSize: 'fileSize',
   isDeleted: 'isDeleted',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',

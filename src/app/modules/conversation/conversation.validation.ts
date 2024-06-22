@@ -38,7 +38,30 @@ const updateConversation = z.object({
     }).optional()
 })
 
+
+const updateConversationThenSlientlyCreateMessage = z.object({
+    body:z.object({
+        lastMessage:z.string({required_error:"lastMessage is required."}),
+        lastMessageType:z.enum([
+            'web',
+            'code',
+            'video',
+            'audio',
+            'image',
+            'document',
+            'archive',
+            'text',
+            'script',
+            'data',
+          ],{required_error:"lastMessageType type is required."}),
+        conversationId:z.string({required_error:"conversationId is required."}),
+        fileName:z.string().optional(),
+        fileSize:z.string().optional(),
+    })
+})
+
 export const ConversationValidations = {
     createConversation,
-    updateConversation
+    updateConversation,
+    updateConversationThenSlientlyCreateMessage
 }

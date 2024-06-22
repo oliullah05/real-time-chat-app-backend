@@ -15,6 +15,11 @@ validateRequest(ConversationValidations.createConversation),
 ConversationControllers.createGroupConversationThenSlientlyCreateMessage);
 
 
+router.post("/updateConversationThenSlientlyCreateMessage", auth("user","admin"),
+validateRequest(ConversationValidations.updateConversationThenSlientlyCreateMessage), 
+ConversationControllers.updateConversationThenSlientlyCreateMessage);
+
+
 router.get("/my-conversations", auth("user","admin"),
 ConversationControllers.getMyConversations);
 

@@ -75,7 +75,7 @@ if(!isConversationValid.participants.includes(userId)){
         skip,
         take: limit,
         orderBy:{
-          updatedAt:"desc"
+          updatedAt:"asc"
         }
 
     })

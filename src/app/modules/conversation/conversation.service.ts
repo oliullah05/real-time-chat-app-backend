@@ -2,6 +2,7 @@ import { Conversation } from "../../../../prisma/generated/client";
 import ApiError from "../../errors/apiError";
 // import ApiError from "../../errors/apiError";
 import prisma from "../../shared/prisma";
+import sendResponse from "../../shared/sendResponse";
 import { TPagination, TParticipantUsers } from "./conversation.type";
 
 const createOrUpdateConversationThenSlientlyCreateMessage = async (payload: {
@@ -64,32 +65,32 @@ const createOrUpdateConversationThenSlientlyCreateMessage = async (payload: {
 
 
   // define for conversation message show
-  let conversationLastMessage = "";
+  // let conversationLastMessage = "";
 
-  if (payload.lastMessageType === "text") {
-    conversationLastMessage = payload.lastMessage
-  }
-  else if (payload.lastMessageType === "voice") {
-    conversationLastMessage = "Send an audio clip"
-  }
-  else if (payload.lastMessageType === "audio") {
-    conversationLastMessage = "Send an audio file"
-  }
-  else if (payload.lastMessageType === "video") {
-    conversationLastMessage = "Send an video file"
-  }
-  else if (payload.lastMessageType === "image") {
-    conversationLastMessage = "Send an image"
-  }
-  else if (
-    payload.lastMessageType === "web" ||
-    payload.lastMessageType === "code" ||
-    payload.lastMessageType === "document" ||
-    payload.lastMessageType === "archive" ||
-    payload.lastMessageType === "script" ||
-    payload.lastMessageType === "data") {
-    conversationLastMessage = "Send a file"
-  }
+  // if (payload.lastMessageType === "text") {
+  //   conversationLastMessage = payload.lastMessage
+  // }
+  // else if (payload.lastMessageType === "voice") {
+  //   conversationLastMessage = "Send an audio clip"
+  // }
+  // else if (payload.lastMessageType === "audio") {
+  //   conversationLastMessage = "Send an audio file"
+  // }
+  // else if (payload.lastMessageType === "video") {
+  //   conversationLastMessage = "Send an video file"
+  // }
+  // else if (payload.lastMessageType === "image") {
+  //   conversationLastMessage = "Send an image"
+  // }
+  // else if (
+  //   payload.lastMessageType === "web" ||
+  //   payload.lastMessageType === "code" ||
+  //   payload.lastMessageType === "document" ||
+  //   payload.lastMessageType === "archive" ||
+  //   payload.lastMessageType === "script" ||
+  //   payload.lastMessageType === "data") {
+  //   conversationLastMessage = "Send a file"
+  // }
 
 
 
@@ -98,7 +99,7 @@ const createOrUpdateConversationThenSlientlyCreateMessage = async (payload: {
   const result = await prisma.$transaction(async (txClient) => {
     // payload for create 
     const createModifyPayload: any = {
-      lastMessage: conversationLastMessage,
+      lastMessage: payload.lastMessage,
       participants: sortedParticipants,
     }
     if (payload.isGroup) {
@@ -118,7 +119,7 @@ const createOrUpdateConversationThenSlientlyCreateMessage = async (payload: {
 
     // payload for update 
     const updateModifyPayload: any = {
-      lastMessage: conversationLastMessage,
+      lastMessage: payload.lastMessage,
     }
 
     if (payload.groupName) {
@@ -202,7 +203,8 @@ const createOrUpdateConversationThenSlientlyCreateMessage = async (payload: {
             user: {
               select: {
                 name: true,
-                email: true
+                email: true,
+                profilePhoto: true
               }
             }
           }
@@ -214,9 +216,19 @@ const createOrUpdateConversationThenSlientlyCreateMessage = async (payload: {
       },
     });
 
-    return getConversation;
-  });
 
+
+    if (!getConversation.isGroup) {
+      const conversationUsers = getConversation.conversationsUsers.filter(user => user.userId !== userId)
+      const receiverProfileId = conversationUsers[0].userId;
+      const receiverProfileName = conversationUsers[0].user.name;
+      const receiverProfilePhoto = conversationUsers[0].user.profilePhoto;
+      return { conversation: { ...getConversation, receiverProfileId, receiverProfilePhoto, receiverProfileName }, message: createMessageForThisConversation, }
+    }
+
+
+    return { conversation: getConversation, message: createMessageForThisConversation };
+  });
   return {
     result,
     message: `${isConversationExits ? "Conversation Update successfully" : "Conversation created successfully"}`,
@@ -395,14 +407,169 @@ const createGroupConversationThenSlientlyCreateMessage = async (payload: {
 
 
 
+
+// update conversation and message to message input
+
+
+const updateConversationThenSlientlyCreateMessage = async (payload: {
+  conversationId: string
+  lastMessage: string;
+  lastMessageType: string,
+  fileName?: string,
+  fileSize?: string
+}, userId: string) => {
+
+
+  // check is conversation exits 
+
+  await prisma.conversation.findUniqueOrThrow({
+    where: {
+      id: payload.conversationId
+    }
+  })
+
+  await prisma.user.findUniqueOrThrow({
+    where:{
+      id:userId
+    }
+  })
+
+
+  // define for conversation message show
+  let conversationLastMessage = "";
+
+  if (payload.lastMessageType === "text") {
+    conversationLastMessage = payload.lastMessage
+  }
+  else if (payload.lastMessageType === "voice") {
+    conversationLastMessage = "Send an audio clip"
+  }
+  else if (payload.lastMessageType === "audio") {
+    conversationLastMessage = "Send an audio file"
+  }
+  else if (payload.lastMessageType === "video") {
+    conversationLastMessage = "Send an video file"
+  }
+  else if (payload.lastMessageType === "image") {
+    conversationLastMessage = "Send an image"
+  }
+  else if (
+    payload.lastMessageType === "web" ||
+    payload.lastMessageType === "code" ||
+    payload.lastMessageType === "document" ||
+    payload.lastMessageType === "archive" ||
+    payload.lastMessageType === "script" ||
+    payload.lastMessageType === "data") {
+    conversationLastMessage = "Send a file"
+  }
+
+
+
+  const result = await prisma.$transaction(async (txClient) => {
+    // payload for update conversation
+    const updateConversationPayload: any = {
+      lastMessage: conversationLastMessage,
+      lastMessageType: payload.lastMessageType
+    }
+
+
+    const updateConversation = await txClient.conversation.update({
+      where: {
+        id: payload.conversationId
+      },
+      data: updateConversationPayload
+    })
+
+
+    console.log(2000, updateConversation, 20000);
+
+
+    // payload for create message for this conversation
+    const createMessagePayload: any = {
+      message: payload.lastMessage,
+      type: payload.lastMessageType,
+      conversationId: updateConversation.id,
+      senderId: userId
+    }
+
+    if (payload.fileName) {
+      createMessagePayload.fileName = payload.fileName;
+    }
+    if (payload.fileSize) {
+      createMessagePayload.fileSize = payload.fileSize;
+    }
+
+
+    const createMessageForThisConversation = await txClient.message.create({
+      data: createMessagePayload
+    })
+
+
+
+
+    const getConversation = await txClient.conversation.findUniqueOrThrow({
+      where: {
+        id: updateConversation.id
+      },
+      select: {
+        id: true,
+        participants: true,
+        lastMessage: true,
+        isGroup: true,
+        groupName: true,
+        groupPhoto: true,
+
+        conversationsUsers: {
+          include: {
+            user: {
+              select: {
+                name: true,
+                email: true,
+                profilePhoto: true
+              }
+            }
+          }
+        },
+
+        isDeleted: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    });
+
+
+
+    if (!getConversation.isGroup) {
+      const conversationUsers = getConversation.conversationsUsers.filter(user => user.userId !== userId)
+      const receiverProfileId = conversationUsers[0].userId;
+      const receiverProfileName = conversationUsers[0].user.name;
+      const receiverProfilePhoto = conversationUsers[0].user.profilePhoto;
+      return { conversation: { ...getConversation, receiverProfileId, receiverProfilePhoto, receiverProfileName }, message: createMessageForThisConversation, }
+    }
+
+
+    return { conversation: getConversation, message: createMessageForThisConversation };
+  });
+
+  return result
+};
+
+
+
+
+
+
+
+
+
+
+
+
 const getMyConversations = async (pagination: TPagination, id: string) => {
   //  calculate pagination
   const page = Number(pagination.page) || 1;
   const limit = Number(pagination.limit) || 10;
   const skip = (page - 1) * limit
-
-
-
 
 
 
@@ -443,7 +610,7 @@ const getMyConversations = async (pagination: TPagination, id: string) => {
   });
 
   if (myAllconversations?.length === 0) {
-    throw new ApiError(404, "Conversation not found")
+
   }
 
 
@@ -590,6 +757,7 @@ const updateConversationByParticipants = async (participants: string, payload: P
 export const ConversationServices = {
   createOrUpdateConversationThenSlientlyCreateMessage,
   createGroupConversationThenSlientlyCreateMessage,
+  updateConversationThenSlientlyCreateMessage,
 
   getMyConversations,
   getConversationById,
