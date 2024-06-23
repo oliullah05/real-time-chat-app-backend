@@ -72,11 +72,13 @@ if(!isConversationValid.participants.includes(userId)){
         where:{
            conversationId,
         },
-        skip,
-        take: limit,
         orderBy:{
           updatedAt:"asc"
-        }
+        },
+        skip,
+        
+        take: limit,
+      
 
     })
     // 9291d8b2-8ad7-4b7c-8647-1393d5a70dca/b89bd333-e286-47db-9034-ffd35338a9ea

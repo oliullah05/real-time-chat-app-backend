@@ -399,7 +399,7 @@ const createGroupConversationThenSlientlyCreateMessage = async (payload: {
       },
     });
 
-    return getConversation;
+    return {conversation:getConversation,message:createMessageForThisGroupConversation};
   });
 
   return result
@@ -442,7 +442,7 @@ const updateConversationThenSlientlyCreateMessage = async (payload: {
     conversationLastMessage = payload.lastMessage
   }
   else if (payload.lastMessageType === "voice") {
-    conversationLastMessage = "Send an audio clip"
+    conversationLastMessage = "Send an voice clip"
   }
   else if (payload.lastMessageType === "audio") {
     conversationLastMessage = "Send an audio file"

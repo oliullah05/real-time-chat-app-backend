@@ -10,6 +10,7 @@ const createMessage = z.object({
             'code',
             'video',
             'audio',
+            'voice',
             'image',
             'document',
             'archive',
