@@ -1,4 +1,5 @@
 import app from "./app";
+import server from "./app";
 import config from "./app/config";
 const port = config.port;
 

@@ -1,4 +1,5 @@
 import { Conversation } from "../../../../prisma/generated/client";
+import { io } from "../../../app";
 import ApiError from "../../errors/apiError";
 // import ApiError from "../../errors/apiError";
 import prisma from "../../shared/prisma";
@@ -399,9 +400,9 @@ const createGroupConversationThenSlientlyCreateMessage = async (payload: {
       },
     });
 
-    return {conversation:getConversation,message:createMessageForThisGroupConversation};
+    return { conversation: getConversation, message: createMessageForThisGroupConversation };
   });
-
+  // io.emit("create-group", result)
   return result
 };
 
@@ -429,8 +430,8 @@ const updateConversationThenSlientlyCreateMessage = async (payload: {
   })
 
   await prisma.user.findUniqueOrThrow({
-    where:{
-      id:userId
+    where: {
+      id: userId
     }
   })
 
@@ -481,7 +482,6 @@ const updateConversationThenSlientlyCreateMessage = async (payload: {
     })
 
 
-    console.log(2000, updateConversation, 20000);
 
 
     // payload for create message for this conversation

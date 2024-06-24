@@ -1,4 +1,5 @@
 import { Conversation } from "../../../../prisma/generated/client";
+import { io } from "../../../app";
 import catchAsync from "../../shared/catchAsync";
 import pick from "../../shared/pick";
 import sendResponse from "../../shared/sendResponse";
@@ -22,7 +23,6 @@ const createOrUpdateConversationThenSlientlyCreateMessage = catchAsync(async (re
 const createGroupConversationThenSlientlyCreateMessage = catchAsync(async (req, res) => {
     const userId = req.user.id;
     const result = await ConversationServices.createGroupConversationThenSlientlyCreateMessage(req.body, userId);
-
     sendResponse(res, {
         success: true,
         message: "Group Created successfully",
