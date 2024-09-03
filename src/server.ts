@@ -6,7 +6,7 @@ const port = config.port;
 
 const main =()=>{
     try{
-        app.listen(port,()=>{
+        server.listen(port,()=>{
             console.log(`Chat application server is running on port ${port}`);
         })
     }
