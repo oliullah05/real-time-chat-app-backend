@@ -10,22 +10,20 @@ const app: Application = express();
 
 const server = createServer(app);
 
-export const io = new Server(server, {
+export const io = new Server(server, { 
     cors: {
         origin: "http://localhost:5173",
-        methods: ["GET", "POST"], // Specify allowed methods if needed
+        methods: ["GET", "POST"], 
         credentials: true
     }
 })
+
 let activeUsers: { userId: string, socketId: string, userInfo: { id: string } }[] = []
 
 
 io.on("connection", (socket) => {
 
-
-
     // console.log("user connected", socket.id)
-
 
     socket.on("setActiveUsers", (user) => {
         const checkUser = activeUsers.some(u => u.userId === user.userId);
@@ -33,8 +31,13 @@ io.on("connection", (socket) => {
             activeUsers.push(user);
             console.log(activeUsers);
             io.emit("seeActiveUsers", activeUsers)
-        }
+        } 
     })
+    socket.on("sendMessage", (message) => {
+        console.log("Received message:", message);
+    });
+
+    
 });
 
 

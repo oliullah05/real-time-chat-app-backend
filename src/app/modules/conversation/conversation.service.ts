@@ -419,7 +419,7 @@ const updateConversationThenSlientlyCreateMessage = async (payload: {
   fileName?: string,
   fileSize?: string
 }, userId: string) => {
-
+  io.emit("sendMessage", payload.lastMessage); 
 
   // check is conversation exits 
 
